@@ -1,0 +1,13 @@
+@use "../../../styles/colors" as *;
+
+.header {
+  background-color: $dash-blue;
+  height: 210px;
+  padding: 30px
+}
+
+.header__logo {
+  margin: 0 auto 30px auto;
+  width: 90px;
+  height: 24px;
+}

@@ -16,7 +16,7 @@ const Popup: React.FC = () => {
     if (loading) {
       setTimeout(() => {
         setLoading(false);
-      }, 4000);
+      }, 500);
     }
   }, [loading]);
 
