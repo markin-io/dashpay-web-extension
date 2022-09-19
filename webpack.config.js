@@ -61,7 +61,7 @@ module.exports = {
     manifest: path.join(sourcePath, 'manifest.json'),
     background: path.join(sourcePath, 'Background', 'index.ts'),
     contentScript: path.join(sourcePath, 'ContentScript', 'index.ts'),
-    popup: path.join(sourcePath, 'Popup', 'index.tsx'),
+    popup: path.join(sourcePath, 'components', 'index.tsx'),
     options: path.join(sourcePath, 'Options', 'index.tsx'),
   },
 
@@ -96,6 +96,21 @@ module.exports = {
         test: /\.(js|ts)x?$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
+      },
+      {
+        test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: 'static/media/[name].[hash:8].[ext]',
+        },
+      },
+      {
+        test: [/\.eot$/, /\.ttf$/, /\.svg$/, /\.woff$/, /\.woff2$/],
+        loader: 'file-loader',
+        options: {
+          name: '/static/media/[name].[hash:8].[ext]',
+        },
       },
       {
         test: /\.(sa|sc|c)ss$/,
@@ -199,7 +214,10 @@ module.exports = {
               {
                 format: 'zip',
                 source: path.join(destPath, targetBrowser),
-                destination: `${path.join(destPath, targetBrowser)}.${getExtensionFileType(targetBrowser)}`,
+                destination: `${path.join(
+                  destPath,
+                  targetBrowser
+                )}.${getExtensionFileType(targetBrowser)}`,
                 options: {zlib: {level: 6}},
               },
             ],

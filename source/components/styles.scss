@@ -5,8 +5,15 @@
 body {
   color: $black;
   background-color: $greyWhite;
+
+  margin: 0 auto;
 }
 
+#popup-root {
+  width: 360px;
+  height: 600px;
+  margin: 0 auto;
+}
 
 #popup {
   min-width: 350px;
