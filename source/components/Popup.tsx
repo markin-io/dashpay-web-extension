@@ -1,24 +1,24 @@
 import * as React from 'react';
-// import {browser, Tabs} from 'webextension-polyfill-ts';
 
 import './styles.scss';
 import {useEffect, useState} from 'react';
+import {browser} from 'webextension-polyfill-ts';
 import Splash from '../screens/Splash';
 import Home from '../screens/Home';
-
-// function openWebPage(url: string): Promise<Tabs.Tab> {
-//   return browser.tabs.create({url});
-// }
+import MESSAGES from '../Background/messages';
 
 const Popup: React.FC = () => {
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    if (loading) {
-      setTimeout(() => {
-        setLoading(false);
-      }, 500);
-    }
-  }, [loading]);
+    const initSdk = async (): Promise<void> => {
+      await browser.runtime.sendMessage({type: MESSAGES.INIT});
+      await browser.runtime.sendMessage({type: MESSAGES.INIT_SDK});
+      setLoading(false);
+    };
+
+    initSdk().catch(console.error);
+  }, []);
 
   return loading ? <Splash /> : <Home />;
 };
