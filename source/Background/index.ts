@@ -18,10 +18,13 @@ browser.runtime.onInstalled.addListener((): void => {
   console.emoji('🦄', 'extension installed11');
 });
 
-browser.runtime.onMessage.addListener((message: Message): void => {
-  if (message.type === MESSAGES.INIT) {
-    if (Object.keys(services).length === 0) {
-      services.dashService = new DashService();
+browser.runtime.onMessage.addListener(
+  async (message: Message): Promise<boolean> => {
+    if (message.type === MESSAGES.INIT) {
+      if (Object.keys(services).length === 0) {
+        services.dashService = new DashService();
+      }
     }
+    return true;
   }
-});
+);

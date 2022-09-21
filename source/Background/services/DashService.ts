@@ -2,6 +2,8 @@ import {browser} from 'webextension-polyfill-ts';
 import {Wallet, EVENTS, CONSTANTS} from '@dashevo/wallet-lib';
 
 import MESSAGES from '../messages';
+import DASH_SERVICE_MESSAGE from './messages';
+import {HeadersSyncProgressInfo, TxSyncProgressInfo} from './types';
 
 export type Message = {type: string; payload: unknown};
 
@@ -24,6 +26,26 @@ class DashService {
           'fever empty hotel donor chase funny photo honey economy near filter confirm',
       });
 
+      this._wallet.on(
+        EVENTS.HEADERS_SYNC_PROGRESS,
+        async (progressInfo: HeadersSyncProgressInfo) => {
+          await browser.runtime.sendMessage({
+            type: DASH_SERVICE_MESSAGE.HEADERS_SYNC_PROGRESS_UPDATED,
+            payload: progressInfo,
+          });
+        }
+      );
+
+      this._wallet.on(
+        EVENTS.TX_SYNC_PROGRESS,
+        async (progressInfo: TxSyncProgressInfo) => {
+          await browser.runtime.sendMessage({
+            type: DASH_SERVICE_MESSAGE.TX_SYNC_PROGRESS_UPDATED,
+            payload: progressInfo,
+          });
+        }
+      );
+
       return new Promise((resolve, reject) => {
         this._wallet.storage.on(EVENTS.REHYDRATE_STATE_SUCCESS, resolve);
         this._wallet.storage.on(EVENTS.REHYDRATE_STATE_FAILED, reject);
@@ -42,17 +64,14 @@ class DashService {
   async messageListener(message: Message): Promise<unknown> {
     switch (message.type) {
       case MESSAGES.INIT_WALLET:
-        console.log('Wall', this._wallet);
         await this.init();
-        break;
+        return true;
       case MESSAGES.SYNC_WALLET:
         this.syncWallet();
-        return null;
+        return true;
       default:
-        return null;
+        return true;
     }
-
-    return null;
   }
 }
 
