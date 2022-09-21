@@ -1,0 +1,45 @@
+@use "../../../styles/colors" as *;
+
+.transactions {
+  background-color: $alabaster;
+  height: calc(100% - 210px);
+}
+
+.transactions__boundaries {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+
+.transactions__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.transactions__progress {
+  display: flex;
+  flex-direction: row;
+}
+
+.transactions__progress-label {
+  margin-right: 4px;
+}
+
+.transactions__history-title {
+  font-weight: 700;
+}
+
+.transactions__empty-label {
+  color: $raven;
+}
+
+.transactions__list {
+  &--empty {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

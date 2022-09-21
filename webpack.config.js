@@ -11,6 +11,8 @@ const WextManifestWebpackPlugin = require('wext-manifest-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
+const PnpWebpackPlugin = require(`pnp-webpack-plugin`);
+
 const viewsPath = path.join(__dirname, 'views');
 const sourcePath = path.join(__dirname, 'source');
 const destPath = path.join(__dirname, 'extension');
@@ -72,11 +74,19 @@ module.exports = {
 
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.json'],
-    alias: {
-      'webextension-polyfill-ts': path.resolve(
-        path.join(__dirname, 'node_modules', 'webextension-polyfill-ts')
-      ),
-    },
+    // alias: {
+    //   'webextension-polyfill-ts': path.resolve(
+    //     path.join(__dirname, 'node_modules', 'webextension-polyfill-ts')
+    //   ),
+    // },
+    plugins: [PnpWebpackPlugin],
+  },
+  resolveLoader: {
+    plugins: [PnpWebpackPlugin.moduleLoader(module)],
+  },
+
+  node: {
+    fs: 'empty',
   },
 
   module: {

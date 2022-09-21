@@ -13,7 +13,7 @@ const Popup: React.FC = () => {
   useEffect(() => {
     const initSdk = async (): Promise<void> => {
       await browser.runtime.sendMessage({type: MESSAGES.INIT});
-      await browser.runtime.sendMessage({type: MESSAGES.INIT_SDK});
+      await browser.runtime.sendMessage({type: MESSAGES.INIT_WALLET});
       setLoading(false);
     };
 

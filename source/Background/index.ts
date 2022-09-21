@@ -20,6 +20,8 @@ browser.runtime.onInstalled.addListener((): void => {
 
 browser.runtime.onMessage.addListener((message: Message): void => {
   if (message.type === MESSAGES.INIT) {
-    services.dashService = new DashService();
+    if (Object.keys(services).length === 0) {
+      services.dashService = new DashService();
+    }
   }
 });

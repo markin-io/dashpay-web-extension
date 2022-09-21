@@ -27,9 +27,9 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.14.0",
+    "@dashevo/wallet-lib": "^7.22.16",
     "advanced-css-reset": "^1.2.2",
     "classnames": "^2.3.2",
-    "dash": "^3.22.16",
     "emoji-log": "^1.0.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -66,6 +66,7 @@
     "css-loader": "^5.2.5",
     "eslint": "^7.27.0",
     "eslint-config-prettier": "^6.15.0",
+    "eslint-import-resolver-node": "^0.3.6",
     "eslint-plugin-import": "^2.23.3",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-node": "^11.1.0",
@@ -78,6 +79,7 @@
     "html-webpack-plugin": "^4.5.2",
     "mini-css-extract-plugin": "^1.6.0",
     "optimize-css-assets-webpack-plugin": "^5.0.6",
+    "pnp-webpack-plugin": "^1.7.0",
     "postcss": "^8.3.0",
     "postcss-loader": "^4.3.0",
     "prettier": "^2.3.0",
@@ -91,5 +93,19 @@
     "webpack-extension-reloader": "^1.1.4",
     "wext-manifest-loader": "^2.3.0",
     "wext-manifest-webpack-plugin": "^1.2.1"
+  },
+  "resolutions": {
+    "@dashevo/dapi-grpc": "portal:/Users/igor/development/dash/dashevo/platform/packages/dapi-grpc",
+    "@dashevo/dash-spv": "portal:/Users/igor/development/dash/dashevo/platform/packages/dash-spv",
+    "dashmate": "portal:/Users/igor/development/dash/dashevo/platform/packages/dashmate",
+    "@dashevo/dashpay-contract": "portal:/Users/igor/development/dash/dashevo/platform/packages/dashpay-contract",
+    "@dashevo/dpns-contract": "portal:/Users/igor/development/dash/dashevo/platform/packages/dpns-contract",
+    "@dashevo/feature-flags-contract": "portal:/Users/igor/development/dash/dashevo/platform/packages/feature-flags-contract",
+    "@dashevo/dapi-client": "portal:/Users/igor/development/dash/dashevo/platform/packages/js-dapi-client",
+    "dash": "portal:/Users/igor/development/dash/dashevo/platform/packages/js-dash-sdk",
+    "@dashevo/dpp": "portal:/Users/igor/development/dash/dashevo/platform/packages/js-dpp",
+    "@dashevo/grpc-common": "portal:/Users/igor/development/dash/dashevo/platform/packages/js-grpc-common",
+    "@dashevo/masternode-reward-shares-contract": "portal:/Users/igor/development/dash/dashevo/platform/packages/masternode-reward-shares-contract",
+    "@dashevo/wallet-lib": "portal:/Users/igor/development/dash/dashevo/platform/packages/wallet-lib"
   }
 }

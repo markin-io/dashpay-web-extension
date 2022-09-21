@@ -1,57 +1,58 @@
-import Dash from 'dash';
-
 import {browser} from 'webextension-polyfill-ts';
+import {Wallet, EVENTS, CONSTANTS} from '@dashevo/wallet-lib';
+
 import MESSAGES from '../messages';
 
-const {EVENTS} = Dash.WalletLib;
-
-export type Message = {
-  type: string;
-  payload: unknown;
-};
+export type Message = {type: string; payload: unknown};
 
 class DashService {
-  private _dashClient: any;
+  private _wallet: any;
 
   constructor() {
     this.init = this.init.bind(this);
+    this.syncWallet = this.syncWallet.bind(this);
     this.messageListener = this.messageListener.bind(this);
 
     browser.runtime.onMessage.addListener(this.messageListener);
   }
 
-  async init(): Promise<void> {
-    this._dashClient = new Dash.Client({
-      network: 'testnet',
-      wallet: {
+  async init(): Promise<unknown> {
+    if (!this._wallet) {
+      this._wallet = new Wallet({
+        network: 'testnet',
         mnemonic:
           'fever empty hotel donor chase funny photo honey economy near filter confirm',
-      },
-    });
-    return new Promise((resolve, reject) => {
-      const {wallet} = this._dashClient;
-      wallet.storage.on(EVENTS.REHYDRATE_STATE_SUCCESS, resolve);
-      wallet.storage.on(EVENTS.REHYDRATE_STATE_FAILED, reject);
-    });
+      });
+
+      return new Promise((resolve, reject) => {
+        this._wallet.storage.on(EVENTS.REHYDRATE_STATE_SUCCESS, resolve);
+        this._wallet.storage.on(EVENTS.REHYDRATE_STATE_FAILED, reject);
+      });
+    }
+
+    return null;
+  }
+
+  syncWallet(): void {
+    if (this._wallet.state === CONSTANTS.WALLET_STATES.OFFLINE) {
+      this._wallet.getAccount();
+    }
   }
 
   async messageListener(message: Message): Promise<unknown> {
     switch (message.type) {
-      case MESSAGES.INIT_SDK:
+      case MESSAGES.INIT_WALLET:
+        console.log('Wall', this._wallet);
         await this.init();
         break;
-      case MESSAGES.GET_ACCOUNT:
-        // dashService.getAccount();
-        return 'll';
+      case MESSAGES.SYNC_WALLET:
+        this.syncWallet();
+        return null;
       default:
-        return 0;
+        return null;
     }
 
-    return 0;
-  }
-
-  async getAccount(): Promise<void> {
-    await this._dashClient.wallet.getAccount();
+    return null;
   }
 }
 
