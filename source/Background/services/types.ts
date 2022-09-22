@@ -12,3 +12,8 @@ export type TxSyncProgressInfo = {
   totalBlocksCount: number;
   transactionsCount: number;
 };
+
+export type SyncProgressInfo = {
+  txSyncProgressInfo: TxSyncProgressInfo;
+  headersSyncProgressInfo: HeadersSyncProgressInfo;
+};

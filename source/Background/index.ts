@@ -2,6 +2,7 @@ import 'emoji-log';
 import {browser} from 'webextension-polyfill-ts';
 import DashService from './services/DashService';
 import MESSAGES from './messages';
+import DASH_SERVICE_MESSAGES from './services/messages';
 
 type Message = {
   type: string;
@@ -13,18 +14,27 @@ type Services = {
 };
 
 const services: Services = {};
+let initialized = false;
 
 browser.runtime.onInstalled.addListener((): void => {
   console.emoji('🦄', 'extension installed11');
 });
 
-browser.runtime.onMessage.addListener(
-  async (message: Message): Promise<boolean> => {
+const messageHandler = async (message: Message): Promise<unknown> => {
+  if (!initialized) {
     if (message.type === MESSAGES.INIT) {
-      if (Object.keys(services).length === 0) {
-        services.dashService = new DashService();
-      }
+      services.dashService = new DashService();
+      initialized = true;
     }
-    return true;
+
+    return false;
   }
-);
+
+  if (message.type in DASH_SERVICE_MESSAGES) {
+    return services.dashService?.handleMessage(message);
+  }
+
+  return false;
+};
+
+browser.runtime.onMessage.addListener(messageHandler);

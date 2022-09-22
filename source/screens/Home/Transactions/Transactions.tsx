@@ -1,12 +1,11 @@
-import React, {useMemo, useState} from 'react';
+import React, {useMemo} from 'react';
 import classnames from 'classnames';
 
 import './Transactions.scss';
 import useWalletSyncProgress from '../../../hooks/useWalletSyncProgress';
+import useTransactionHistory from '../../../hooks/useTransactionHistory';
 
 const Transactions = () => {
-  const [transactions] = useState([]);
-
   const {txSyncProgressInfo, headersSyncProgressInfo} = useWalletSyncProgress();
 
   const totalProgress = useMemo(() => {
@@ -16,6 +15,8 @@ const Transactions = () => {
     progress = Math.round(progress * 10) / 10;
     return progress;
   }, [headersSyncProgressInfo.totalProgress, txSyncProgressInfo.progress]);
+
+  const {transactionHistory} = useTransactionHistory();
 
   return (
     <div className="transactions">
@@ -29,15 +30,15 @@ const Transactions = () => {
         </div>
         <div
           className={classnames('transactions__list', {
-            'transactions__list--empty': transactions.length === 0,
+            'transactions__list--empty': transactionHistory.length === 0,
           })}
         >
-          {transactions.length === 0 ? (
+          {transactionHistory.length === 0 ? (
             <p className="transactions__empty-label">
               There are no transactions to display
             </p>
           ) : (
-            <div />
+            <div>Some transactions: {transactionHistory.length}</div>
           )}
         </div>
       </section>

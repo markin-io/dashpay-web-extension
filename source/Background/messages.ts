@@ -1,7 +1,5 @@
 const MESSAGES = {
   INIT: 'INIT',
-  INIT_WALLET: 'INIT_WALLET',
-  SYNC_WALLET: 'SYNC_WALLET',
 };
 
 export default MESSAGES;
