@@ -17,3 +17,22 @@ export type SyncProgressInfo = {
   txSyncProgressInfo: TxSyncProgressInfo;
   headersSyncProgressInfo: HeadersSyncProgressInfo;
 };
+
+export type TransactionMember = {
+  address: string;
+  addressType: string;
+  satoshis?: number;
+};
+
+export type TransactionHistoryItem = {
+  from: TransactionMember[];
+  to: TransactionMember[];
+  type: string;
+  time: string;
+  txId: string;
+  blockHash: string;
+  isChainLocked: boolean;
+  isInstantLocked: boolean;
+  satoshisBalanceImpact: number;
+  feeImpact: number;
+};

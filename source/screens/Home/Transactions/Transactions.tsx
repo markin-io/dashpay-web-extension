@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import './Transactions.scss';
 import useWalletSyncProgress from '../../../hooks/useWalletSyncProgress';
 import useTransactionHistory from '../../../hooks/useTransactionHistory';
+import TransactionListItem from './TransactionListItem';
 
 const Transactions = () => {
   const {txSyncProgressInfo, headersSyncProgressInfo} = useWalletSyncProgress();
@@ -38,7 +39,16 @@ const Transactions = () => {
               There are no transactions to display
             </p>
           ) : (
-            <div>Some transactions: {transactionHistory.length}</div>
+            <ul>
+              {transactionHistory.map((transactionHistoryItem) => {
+                return (
+                  <TransactionListItem
+                    transactionHistoryItem={transactionHistoryItem}
+                    key={transactionHistoryItem.txId}
+                  />
+                );
+              })}
+            </ul>
           )}
         </div>
       </section>

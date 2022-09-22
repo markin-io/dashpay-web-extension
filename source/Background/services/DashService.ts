@@ -7,6 +7,7 @@ import {
   HeadersSyncProgressInfo,
   TxSyncProgressInfo,
   SyncProgressInfo,
+  TransactionHistoryItem,
 } from './types';
 
 export type Message = {type: string; payload: unknown};
@@ -86,7 +87,7 @@ class DashService {
     return account.getTotalBalance();
   }
 
-  async getTransactionHistory(): Promise<unknown> {
+  async getTransactionHistory(): Promise<TransactionHistoryItem[]> {
     const account = await this._wallet.getAccount({synchronize: false});
     return account.getTransactionHistory();
   }

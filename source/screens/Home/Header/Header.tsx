@@ -4,14 +4,14 @@ import './Header.scss';
 import logo from '../../../assets/images/logo.png';
 import useWalletBalance from '../../../hooks/useWalletBalance';
 import useWalletSyncProgress from '../../../hooks/useWalletSyncProgress';
+import moneyFormatter from '../../../utils/moneyFormatter';
 
 const Header = () => {
   const {balance} = useWalletBalance();
   const {initialized} = useWalletSyncProgress();
 
   const balanceFormatted = useMemo(() => {
-    const balanceDash = balance / 1e8;
-    return balanceDash.toString().replace('.', ',');
+    return moneyFormatter.formatDuffs(balance);
   }, [balance]);
 
   return (

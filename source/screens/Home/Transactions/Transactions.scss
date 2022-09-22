@@ -16,6 +16,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-bottom: 15px;
 }
 
 .transactions__progress {
@@ -36,6 +37,12 @@
 }
 
 .transactions__list {
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
   &--empty {
     height: 100%;
     display: flex;
