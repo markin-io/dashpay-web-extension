@@ -50,6 +50,11 @@ class DashService {
         },
       });
 
+      const storageInitPromise = new Promise((resolve, reject) => {
+        this._wallet.storage.on(EVENTS.REHYDRATE_STATE_SUCCESS, resolve);
+        this._wallet.storage.on(EVENTS.REHYDRATE_STATE_FAILED, reject);
+      });
+
       this._wallet.on('error', console.error);
 
       this._wallet.on(
@@ -92,13 +97,10 @@ class DashService {
         browser.runtime.sendMessage({type: DASH_SERVICE_MESSAGE.INITIALIZED});
       });
 
-      return new Promise((resolve, reject) => {
-        this._wallet.storage.on(EVENTS.REHYDRATE_STATE_SUCCESS, resolve);
-        this._wallet.storage.on(EVENTS.REHYDRATE_STATE_FAILED, reject);
-      });
+      await storageInitPromise;
     }
 
-    return null;
+    return true;
   }
 
   async syncWallet(): Promise<void> {
