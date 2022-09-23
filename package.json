@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.14.0",
+    "@dashevo/dashcore-lib": "^0.19.44",
     "@dashevo/wallet-lib": "^7.22.16",
     "advanced-css-reset": "^1.2.2",
     "classnames": "^2.3.2",
@@ -107,6 +108,7 @@
     "@dashevo/dpp": "portal:/Users/igor/development/dash/dashevo/platform/packages/js-dpp",
     "@dashevo/grpc-common": "portal:/Users/igor/development/dash/dashevo/platform/packages/js-grpc-common",
     "@dashevo/masternode-reward-shares-contract": "portal:/Users/igor/development/dash/dashevo/platform/packages/masternode-reward-shares-contract",
-    "@dashevo/wallet-lib": "portal:/Users/igor/development/dash/dashevo/platform/packages/wallet-lib"
+    "@dashevo/wallet-lib": "portal:/Users/igor/development/dash/dashevo/platform/packages/wallet-lib",
+    "buffer": "5.5.0"
   }
 }

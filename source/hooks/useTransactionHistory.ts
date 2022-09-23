@@ -11,6 +11,15 @@ const useTransactionHistory = () => {
   >([]);
 
   useEffect(() => {
+    browser.runtime.onMessage.addListener(async (message): Promise<boolean> => {
+      if (message.type === DASH_SERVICE_MESSAGES.TRANSACTION_HISTORY_UPDATED) {
+        const updatedHistory = message.payload as TransactionHistoryItem[];
+        setTransactionHistory(updatedHistory);
+      }
+
+      return true;
+    });
+
     const getInitialHistory = async (): Promise<void> => {
       const history = (await browser.runtime.sendMessage({
         type: DASH_SERVICE_MESSAGES.GET_TRANSACTION_HISTORY,

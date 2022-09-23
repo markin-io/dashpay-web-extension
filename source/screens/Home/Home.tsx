@@ -5,13 +5,15 @@ import './Home.scss';
 
 import Screen from '../Screen';
 import Header from './Header';
-import MESSAGES from '../../Background/messages';
 import Transactions from './Transactions';
+import DASH_SERVICE_MESSAGES from '../../Background/services/messages';
 
 const Home = () => {
   useEffect(() => {
     const syncWallet = async (): Promise<void> => {
-      await browser.runtime.sendMessage({type: MESSAGES.SYNC_WALLET});
+      await browser.runtime.sendMessage({
+        type: DASH_SERVICE_MESSAGES.SYNC_WALLET,
+      });
     };
 
     syncWallet().catch(console.error);

@@ -40,14 +40,16 @@ const Transactions = () => {
             </p>
           ) : (
             <ul>
-              {transactionHistory.map((transactionHistoryItem) => {
-                return (
-                  <TransactionListItem
-                    transactionHistoryItem={transactionHistoryItem}
-                    key={transactionHistoryItem.txId}
-                  />
-                );
-              })}
+              {transactionHistory
+                .filter(({type}) => type === 'received' || type === 'sent')
+                .map((transactionHistoryItem) => {
+                  return (
+                    <TransactionListItem
+                      transactionHistoryItem={transactionHistoryItem}
+                      key={transactionHistoryItem.txId}
+                    />
+                  );
+                })}
             </ul>
           )}
         </div>

@@ -1,3 +1,7 @@
+// eslint-disable-next-line
+// @ts-ignore
+import {Transaction} from '@dashevo/dashcore-lib';
+
 import {Wallet, EVENTS, CONSTANTS} from '@dashevo/wallet-lib';
 import localforage from 'localforage';
 import {browser} from 'webextension-polyfill-ts';
@@ -41,7 +45,12 @@ class DashService {
         network: 'testnet',
         mnemonic,
         adapter: localforage,
+        storage: {
+          purgeOnError: false,
+        },
       });
+
+      this._wallet.on('error', console.error);
 
       this._wallet.on(
         EVENTS.HEADERS_SYNC_PROGRESS,
@@ -63,6 +72,22 @@ class DashService {
         }
       );
 
+      const account = await this._wallet.getAccount();
+      this._wallet.on(EVENTS.FETCHED_CONFIRMED_TRANSACTION, async () => {
+        setTimeout(async () => {
+          const balance = await account.getTotalBalance();
+          const transactionHistory = await account.getTransactionHistory();
+          await browser.runtime.sendMessage({
+            type: DASH_SERVICE_MESSAGE.BALANCE_UPDATED,
+            payload: balance,
+          });
+          await browser.runtime.sendMessage({
+            type: DASH_SERVICE_MESSAGE.TRANSACTION_HISTORY_UPDATED,
+            payload: transactionHistory,
+          });
+        }, 100);
+      });
+
       this._wallet.on(EVENTS.INITIALIZED, () => {
         browser.runtime.sendMessage({type: DASH_SERVICE_MESSAGE.INITIALIZED});
       });
@@ -76,9 +101,10 @@ class DashService {
     return null;
   }
 
-  syncWallet(): void {
+  async syncWallet(): Promise<void> {
     if (this._wallet.state === CONSTANTS.WALLET_STATES.OFFLINE) {
-      this._wallet.getAccount();
+      const account = await this._wallet.getAccount();
+      account.init().catch(console.error);
     }
   }
 
@@ -131,7 +157,7 @@ class DashService {
         await this.init();
         break;
       case DashService.MESSAGES.SYNC_WALLET:
-        this.syncWallet();
+        await this.syncWallet();
         break;
       case DashService.MESSAGES.GET_CURRENT_SYNC_PROGRESS:
         return this.getCurrentSyncProgress();

@@ -27,14 +27,14 @@ const messageHandler = async (message: Message): Promise<unknown> => {
       initialized = true;
     }
 
-    return false;
+    return true;
   }
 
   if (message.type in DASH_SERVICE_MESSAGES) {
     return services.dashService?.handleMessage(message);
   }
 
-  return false;
+  return true;
 };
 
 browser.runtime.onMessage.addListener(messageHandler);
