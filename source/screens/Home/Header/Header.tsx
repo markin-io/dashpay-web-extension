@@ -25,7 +25,7 @@ const Header = () => {
       />
       <section className="header__balance">
         <span className="header__balance-syncing">
-          {initialized ? '' : 'Syncing Balance'}
+          {initialized ? '' : 'Syncing Balance (testnet)'}
         </span>
         <span className="header__balance-value-dash">{balanceFormatted}</span>
       </section>

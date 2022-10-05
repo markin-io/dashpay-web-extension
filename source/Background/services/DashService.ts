@@ -32,13 +32,9 @@ class DashService {
     // 1 tx
     // const mnemonic = 'fever empty hotel donor chase funny photo honey economy near filter confirm',
 
-    // Andrei's mnemomic, 700~ txs start appearing at 121001
+    // Adam's mnemonic, tx start appearing at 795295
     const mnemonic =
-      'job flower agree lyrics industry note boost finger buddy dog exact fat';
-
-    // Dashameters 500+ mnemonic, txs start appearing at 481077
-    // const mnemonic =
-    //   'fever empty hotel donor chase funny photo honey economy near filter confirm';
+      'rally meat weird clean unique barrel point extra shiver cheap payment sample';
 
     if (!this._wallet) {
       this._wallet = new Wallet({
@@ -47,6 +43,7 @@ class DashService {
         adapter: localforage,
         storage: {
           purgeOnError: false,
+          autoSave: true,
         },
       });
 
