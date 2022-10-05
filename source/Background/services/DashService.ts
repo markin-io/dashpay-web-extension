@@ -29,12 +29,7 @@ class DashService {
   }
 
   async init(): Promise<unknown> {
-    // 1 tx
-    // const mnemonic = 'fever empty hotel donor chase funny photo honey economy near filter confirm',
-
-    // Adam's mnemonic, tx start appearing at 795295
-    const mnemonic =
-      'rally meat weird clean unique barrel point extra shiver cheap payment sample';
+    const {mnemonic} = await browser.storage.local.get('mnemonic');
 
     if (!this._wallet) {
       this._wallet = new Wallet({
