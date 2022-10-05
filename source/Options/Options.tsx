@@ -1,31 +1,43 @@
 import * as React from 'react';
 
+import {browser} from 'webextension-polyfill-ts';
+
 import './styles.scss';
+import {FormEvent} from 'react';
 
 const Options: React.FC = () => {
+  const [mnemonic, setMnemonic] = React.useState('');
+
+  const onSubmit = (e: FormEvent): void => {
+    e.preventDefault();
+
+    browser.storage.local
+      .set({mnemonic})
+      .then(() => {
+        setMnemonic('');
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
   return (
     <div>
-      <form>
-        <p>
-          <label htmlFor="username">Your Name</label>
-          <br />
-          <input
-            type="text"
-            id="username"
-            name="username"
-            spellCheck="false"
-            autoComplete="off"
-            required
-          />
-        </p>
-        <p>
-          <label htmlFor="logging">
-            <input type="checkbox" name="logging" /> Show the features enabled
-            on each page in the console
-          </label>
-
-          <p>cool cool cool</p>
-        </p>
+      <form onSubmit={onSubmit}>
+        <label htmlFor="mnemonic">Enter your mnemonic</label>
+        <br />
+        <input
+          type="text"
+          id="mnemonic"
+          name="mnemonic"
+          spellCheck="false"
+          autoComplete="off"
+          value={mnemonic}
+          onChange={(e): void => setMnemonic(e.target.value.trim())}
+          required
+        />
+        <br />
+        <input type="submit" value="Save" />
       </form>
     </div>
   );

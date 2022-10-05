@@ -1,0 +1,24 @@
+@use "colors";
+
+html {
+  box-sizing: border-box;
+  height: 100%;
+  font-size: 14px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body,
+div,
+p,
+h1,
+h2,
+h3 {
+  background: none;
+  margin: 0;
+  color: colors.$shark;
+}

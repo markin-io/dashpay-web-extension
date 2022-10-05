@@ -1,0 +1,33 @@
+.actions-pane {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 12px 48px;
+  position: absolute;
+  width: 330px;
+  height: 90px;
+  border-radius: 8px;
+  background-color: white;
+  left: calc(50% - 165px);
+  top: 165px;
+}
+
+.actions-pane__button {
+  opacity: 0.5;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center top;
+  padding-top: 32px;
+  background-size: 32px 30px;
+  text-align: center;
+  cursor: pointer;
+  width: 100px;
+
+  &--receive {
+    background-image: url('chrome-extension://__MSG_@@extension_id__/assets/images/action-receive.png');
+  }
+
+  &--send {
+    background-image: url('chrome-extension://__MSG_@@extension_id__/assets/images/action-send.png');
+  }
+}
