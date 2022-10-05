@@ -97,18 +97,6 @@
     "wext-manifest-webpack-plugin": "^1.2.1"
   },
   "resolutions": {
-    "@dashevo/dapi-grpc": "portal:/Users/igor/development/dash/dashevo/platform/packages/dapi-grpc",
-    "@dashevo/dash-spv": "portal:/Users/igor/development/dash/dashevo/platform/packages/dash-spv",
-    "dashmate": "portal:/Users/igor/development/dash/dashevo/platform/packages/dashmate",
-    "@dashevo/dashpay-contract": "portal:/Users/igor/development/dash/dashevo/platform/packages/dashpay-contract",
-    "@dashevo/dpns-contract": "portal:/Users/igor/development/dash/dashevo/platform/packages/dpns-contract",
-    "@dashevo/feature-flags-contract": "portal:/Users/igor/development/dash/dashevo/platform/packages/feature-flags-contract",
-    "@dashevo/dapi-client": "portal:/Users/igor/development/dash/dashevo/platform/packages/js-dapi-client",
-    "dash": "portal:/Users/igor/development/dash/dashevo/platform/packages/js-dash-sdk",
-    "@dashevo/dpp": "portal:/Users/igor/development/dash/dashevo/platform/packages/js-dpp",
-    "@dashevo/grpc-common": "portal:/Users/igor/development/dash/dashevo/platform/packages/js-grpc-common",
-    "@dashevo/masternode-reward-shares-contract": "portal:/Users/igor/development/dash/dashevo/platform/packages/masternode-reward-shares-contract",
-    "@dashevo/wallet-lib": "portal:/Users/igor/development/dash/dashevo/platform/packages/wallet-lib",
     "buffer": "5.5.0"
   }
 }
