@@ -10,7 +10,7 @@ This branch is not published to NPM yet, and development requires cloning of the
 
 ### Prerequisites
 - Node JS 16+
-- [Yarn 3.1.0+](https://yarnpkg.com/getting-started)
+- [Yarn 3.2.0+](https://yarnpkg.com/getting-started)
 
 ### Setting up development environment
 - Set up Dash Platform repository
@@ -21,7 +21,7 @@ This branch is not published to NPM yet, and development requires cloning of the
   - `$ git clone git@github.com:markin-io/dashpay-web-extension.git`
   - `$ yarn install`
 - Link Platform workspaces to Web Extension
-  - `yarn link --all <PATH_TO_PLATFORM_REPO>`
+  - `yarn link --all /path/to/platform` - absolute path to the paltform repo directory cloned on previous step
   - Ensure that `package.json` has all `@dasevo/*` resolutions in it, e.g.
   ```
     "@dashevo/dapi-grpc": "portal:/Users/bob/dashevo/platform/packages/dapi-grpc",
