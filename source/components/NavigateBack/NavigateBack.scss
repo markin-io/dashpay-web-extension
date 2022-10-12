@@ -1,0 +1,31 @@
+@use "../../styles/colors" as *;
+@use "../../styles/variables" as *;
+
+.navigate {
+  background-color: $dash-blue;
+  display: flex;
+  padding: 7px 9px;
+  align-items: center;
+  white-space: nowrap;
+  flex-wrap: nowrap;
+  position: relative;
+  height: 46px;
+
+  .ui.button {
+    background: none;
+  }
+
+  &__button {
+    position: absolute;
+    left: 7px;
+  }
+
+  &__title {
+    font-size: 16px;
+    font-weight: $semibold;
+    line-height: 24px;
+    width: 100%;
+    color: $white;
+    text-align: center;
+  }
+}

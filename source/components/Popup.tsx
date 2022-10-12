@@ -3,8 +3,8 @@ import * as React from 'react';
 import './styles.scss';
 import {useEffect, useState} from 'react';
 import {browser} from 'webextension-polyfill-ts';
+import {Outlet} from 'react-router-dom';
 import Splash from '../screens/Splash';
-import Home from '../screens/Home';
 import MESSAGES from '../Background/messages';
 import DASH_SERVICE_MESSAGES from '../Background/services/messages';
 
@@ -23,7 +23,7 @@ const Popup: React.FC = () => {
     initSdk().catch(console.error);
   }, []);
 
-  return loading ? <Splash /> : <Home />;
+  return loading ? <Splash /> : <Outlet />;
 };
 
 export default Popup;

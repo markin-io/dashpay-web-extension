@@ -7,7 +7,13 @@ const formatDuffs = (
   return dashAmount.toString().replace('.', decimalSeparator);
 };
 
+const formatSatoshis = (amount: number, decimalPlaces = 8): number => {
+  const satoshiAmount = amount * 10 ** decimalPlaces;
+  return satoshiAmount;
+};
+
 const moneyFormatter = {
   formatDuffs,
+  formatSatoshis,
 };
 export default moneyFormatter;

@@ -32,15 +32,18 @@
     "advanced-css-reset": "^1.2.2",
     "classnames": "^2.3.2",
     "emoji-log": "^1.0.2",
+    "formik": "^2.2.9",
     "localforage": "^1.10.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-router-dom": "^6.4.2",
     "sass": "^1.54.9",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.1.3",
     "style-loader": "^2.0.0",
     "webext-base-css": "^1.3.1",
-    "webextension-polyfill-ts": "^0.25.0"
+    "webextension-polyfill-ts": "^0.25.0",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@abhijithvijayan/eslint-config": "2.6.3",
@@ -97,6 +100,19 @@
     "wext-manifest-webpack-plugin": "^1.2.1"
   },
   "resolutions": {
-    "buffer": "5.5.0"
-  }
+    "buffer": "5.5.0",
+    "@dashevo/dapi-grpc": "portal:/Users/strayko/work/inc/platform/packages/dapi-grpc",
+    "@dashevo/dash-spv": "portal:/Users/strayko/work/inc/platform/packages/dash-spv",
+    "dashmate": "portal:/Users/strayko/work/inc/platform/packages/dashmate",
+    "@dashevo/dashpay-contract": "portal:/Users/strayko/work/inc/platform/packages/dashpay-contract",
+    "@dashevo/dpns-contract": "portal:/Users/strayko/work/inc/platform/packages/dpns-contract",
+    "@dashevo/feature-flags-contract": "portal:/Users/strayko/work/inc/platform/packages/feature-flags-contract",
+    "@dashevo/dapi-client": "portal:/Users/strayko/work/inc/platform/packages/js-dapi-client",
+    "dash": "portal:/Users/strayko/work/inc/platform/packages/js-dash-sdk",
+    "@dashevo/dpp": "portal:/Users/strayko/work/inc/platform/packages/js-dpp",
+    "@dashevo/grpc-common": "portal:/Users/strayko/work/inc/platform/packages/js-grpc-common",
+    "@dashevo/masternode-reward-shares-contract": "portal:/Users/strayko/work/inc/platform/packages/masternode-reward-shares-contract",
+    "@dashevo/wallet-lib": "portal:/Users/strayko/work/inc/platform/packages/wallet-lib"
+  },
+  "packageManager": "yarn@3.2.4"
 }

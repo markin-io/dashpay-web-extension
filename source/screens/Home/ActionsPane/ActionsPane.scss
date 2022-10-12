@@ -23,6 +23,10 @@
   cursor: pointer;
   width: 100px;
 
+  &:hover {
+    opacity: 0.8;
+  }
+
   &--receive {
     background-image: url('chrome-extension://__MSG_@@extension_id__/assets/images/action-receive.png');
   }

@@ -1,0 +1,49 @@
+@use "../../../styles/colors" as *;
+
+.send-form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 1em;
+
+  &__button {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    .ui.button {
+      margin-top: auto;
+    }
+  }
+
+  &__group {
+    &__item:not(:first-child) {
+      margin-top: 1em;
+    }
+    &__item {
+      .input {
+        display: flex;
+      }
+
+      .error {
+        color: #E85C4A !important;
+      }
+      .ui.label {
+        background: none;
+        padding: .5833em 0;
+        background-color: transparent;
+        color: #525C66 ;
+      }
+    }
+  }
+
+  &__balance {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #525C66 ;
+    .ui.button {
+      background: none;
+    }
+  }
+
+}

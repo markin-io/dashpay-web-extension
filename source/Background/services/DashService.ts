@@ -89,6 +89,12 @@ class DashService {
         browser.runtime.sendMessage({type: DASH_SERVICE_MESSAGE.INITIALIZED});
       });
 
+      this._wallet.on(EVENTS.FETCHED_CONFIRMED_TRANSACTION, () => {
+        browser.runtime.sendMessage({
+          type: DASH_SERVICE_MESSAGE.FETCHED_CONFIRMED_TRANSACTION,
+        });
+      });
+
       await storageInitPromise;
     }
 

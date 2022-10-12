@@ -22,3 +22,23 @@ h3 {
   margin: 0;
   color: colors.$shark;
 }
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.ui.active.modal {
+  background-color: #F7F7F7;
+}
+.ui.active.dimmer {
+  justify-content: end;
+}
+.ui.dimmer {
+  background-color: rgba(0,0,0,.45);
+}
+
+.ui.button {
+  background: colors.$dash-blue;
+  color: colors.$white;
+}
