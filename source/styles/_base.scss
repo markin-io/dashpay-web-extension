@@ -28,6 +28,11 @@ h3 {
   flex-direction: column;
 }
 
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
 .ui.active.modal {
   background-color: #F7F7F7;
 }

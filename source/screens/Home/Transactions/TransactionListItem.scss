@@ -26,4 +26,8 @@
   &__date {
     color: $raven;
   }
+  &-unconfirmed {
+    color: #ffcc00;
+    margin-left: 8px;
+  }
 }

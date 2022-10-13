@@ -11,7 +11,7 @@ type Props = {
 const TransactionListItem = (props: Props) => {
   const {transactionHistoryItem} = props;
 
-  const {satoshisBalanceImpact, feeImpact} = transactionHistoryItem;
+  const {satoshisBalanceImpact, feeImpact, blockHash} = transactionHistoryItem;
   const balanceImpactFormatted = useMemo(() => {
     const formattedImpact = moneyFormatter.formatDuffs(
       Math.abs(satoshisBalanceImpact + feeImpact)
@@ -35,11 +35,19 @@ const TransactionListItem = (props: Props) => {
 
   return (
     <li className="transaction-list-item">
-      <span>{type.slice(0, 1).toUpperCase() + type.slice(1)}</span>
+      <div className="row">
+        <span>{type.slice(0, 1).toUpperCase() + type.slice(1)} </span>
+
+        {!blockHash && (
+          <p className="transaction-list-item-unconfirmed">Unconfirmed</p>
+        )}
+      </div>
       <span className="transaction-list-item__balance-impact">
         {balanceImpactFormatted}
       </span>
-      <span className="transaction-list-item__date">{dateFormatted}</span>
+      {!!blockHash && (
+        <span className="transaction-list-item__date">{dateFormatted}</span>
+      )}
     </li>
   );
 };

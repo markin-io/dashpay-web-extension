@@ -36,3 +36,19 @@ export type TransactionHistoryItem = {
   satoshisBalanceImpact: number;
   feeImpact: number;
 };
+
+export type CreateTransactionPayload = {
+  satoshis: number;
+  recipient: string;
+};
+
+export type TransactionInfo = {
+  changeIndex: number;
+  changeScript: string;
+  fee: number;
+  hash: string;
+  inputs: [];
+  nLockTime: number;
+  outputs: [];
+  version: number;
+};

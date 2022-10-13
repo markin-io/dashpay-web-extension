@@ -6,7 +6,7 @@ import useWalletSyncProgress from '../../../hooks/useWalletSyncProgress';
 import useTransactionHistory from '../../../hooks/useTransactionHistory';
 import TransactionListItem from './TransactionListItem';
 
-const Transactions = () => {
+const Transactions: React.FC = () => {
   const {txSyncProgressInfo, headersSyncProgressInfo} = useWalletSyncProgress();
 
   const {transactionHistory} = useTransactionHistory();

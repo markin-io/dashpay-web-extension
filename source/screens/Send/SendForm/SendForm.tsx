@@ -4,10 +4,13 @@ import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import {ValidationError} from 'yup';
 import classnames from 'classnames';
+import {useNavigate} from 'react-router-dom';
+
 import useWalletBalance from '../../../hooks/useWalletBalance';
 import moneyFormatter from '../../../utils/moneyFormatter';
 import ConfirmModal from '../../../components/ConfirmModal';
 import './SendForm.scss';
+import useCreateTransaction from '../../../hooks/useCreateTransaction';
 
 interface IFormInput {
   address: string;
@@ -18,6 +21,10 @@ const SendForm: React.FC = () => {
   const [showBalance, setShowBalance] = useState(true);
   const [isOpen, setOpen] = useState(false);
   const {balance} = useWalletBalance();
+  const navigate = useNavigate();
+  const {handleCreateTransaction, transaction, handleBroadcastTransaction} =
+    useCreateTransaction();
+  const [error, setError] = useState(false);
 
   const balanceFormatted = useMemo(() => {
     return moneyFormatter.formatDuffs(balance);
@@ -42,8 +49,7 @@ const SendForm: React.FC = () => {
       .required('Amount is Required')
       .test('isValidAmount', 'too much', (value?: string | null) => {
         if (value) {
-          const toMuch = balance >= moneyFormatter.formatSatoshis(+value);
-          return toMuch;
+          return balance >= moneyFormatter.formatSatoshis(+value);
         }
         return true;
       }),
@@ -56,9 +62,7 @@ const SendForm: React.FC = () => {
     },
     validationSchema: SignupSchema,
     validateOnChange: true,
-    onSubmit: (data) => {
-      console.log(data);
-    },
+    onSubmit: () => undefined,
   });
 
   const checkWalletIcon = (): null | Record<string, unknown> => {
@@ -72,8 +76,27 @@ const SendForm: React.FC = () => {
     return {name: 'check circle', color: 'green'};
   };
 
+  const onBroadcastTransaction = (): void => {
+    if (transaction) {
+      handleBroadcastTransaction(transaction)
+        .then(() => {
+          navigate('/popup.html');
+        })
+        .catch(() => {
+          setOpen(false);
+          setError(true);
+          setTimeout(() => setError(false), 3000);
+        });
+    }
+  };
+
+  const createTransaction = (): void => {
+    handleCreateTransaction(values);
+    setError(false);
+  };
+
   return (
-    <div className="send-form">
+    <div className="send-form column">
       <div className="send-form__balance">
         <span>
           Balance: {showBalance ? `${balanceFormatted} Dash` : '****'}
@@ -113,6 +136,13 @@ const SendForm: React.FC = () => {
         </div>
       </div>
 
+      {error && (
+        <div className="send-form__error">
+          <span>Oops</span>
+          <p>Sorry, an unexpected error has occurred.</p>
+        </div>
+      )}
+
       <div className="send-form__button">
         <Modal
           onClose={(): void => setOpen(false)}
@@ -128,6 +158,7 @@ const SendForm: React.FC = () => {
                 values.address.length === 0 ||
                 values.amount === 0
               }
+              onClick={createTransaction}
             >
               Send
             </Button>
@@ -137,7 +168,8 @@ const SendForm: React.FC = () => {
             amount={values.amount}
             onClose={(): void => setOpen(false)}
             address={values.address}
-            fee={'0'}
+            fee={transaction?.fee || 0}
+            onBroadcastTransaction={onBroadcastTransaction}
           />
         </Modal>
       </div>

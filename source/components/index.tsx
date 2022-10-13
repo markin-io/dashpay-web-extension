@@ -12,8 +12,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route element={<Popup />}>
-          <Route path="*" element={<Home />} />
-          <Route path="/send" element={<Send />} />
+          <Route path="/popup.html" element={<Home />} />
+          <Route path="/send" element={<Send />} errorElement={<Home />} />
         </Route>
       </Routes>
     </BrowserRouter>

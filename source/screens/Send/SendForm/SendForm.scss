@@ -1,8 +1,6 @@
 @use "../../../styles/colors" as *;
 
 .send-form {
-  display: flex;
-  flex-direction: column;
   height: 100%;
   margin: 1em;
 
@@ -43,6 +41,20 @@
     color: #525C66 ;
     .ui.button {
       background: none;
+      color: $raven;
+
+    }
+  }
+
+  &__error {
+    margin-top: 16px;
+    padding: 8px 8px;
+    border-radius: 12px;
+    border: 1px solid #E85C4A;
+    color: #E85C4A;
+
+    p {
+      color: #E85C4A;
     }
   }
 
