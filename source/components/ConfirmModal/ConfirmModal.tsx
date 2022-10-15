@@ -1,7 +1,8 @@
 import React from 'react';
-import {Button, Container, Icon} from 'semantic-ui-react';
+import {Button, Container} from 'semantic-ui-react';
 import './ConfigmModal.scss';
 import moneyFormatter from '../../utils/moneyFormatter';
+import ModalHeader from '../ModalHeader';
 
 type Props = {
   amount: number;
@@ -9,6 +10,7 @@ type Props = {
   fee: number;
   onClose: () => void;
   onBroadcastTransaction: () => void;
+  loading: boolean;
 };
 
 const formatAddress = (address: string): string => {
@@ -24,15 +26,11 @@ const ConfirmModal: React.FC<Props> = ({
   address,
   fee,
   onBroadcastTransaction,
+  loading,
 }) => {
   return (
     <Container className="confirm-modal column">
-      <div className="confirm-modal__header">
-        <div> Confirm Transaction</div>
-        <Button icon className="confirm-modal__button" onClick={onClose}>
-          <Icon name="close" />
-        </Button>
-      </div>
+      <ModalHeader title="Confirm Transaction" onClose={onClose} />
       <h3>{amount}</h3>
       <div className="confirm-modal__content column">
         <div className="content__row">
@@ -52,8 +50,13 @@ const ConfirmModal: React.FC<Props> = ({
       </div>
 
       <div className={'confirm-modal__send'}>
-        <Button fluid onClick={onBroadcastTransaction}>
-          Send
+        <Button
+          fluid
+          onClick={onBroadcastTransaction}
+          disabled={loading}
+          loading={loading}
+        >
+          {loading ? 'Loading' : 'Send'}
         </Button>
       </div>
     </Container>

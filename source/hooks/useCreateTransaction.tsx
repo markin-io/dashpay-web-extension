@@ -10,10 +10,6 @@ const useCreateTransaction = () => {
     amount: number;
     address: string;
   }): Promise<void> => {
-    console.log(
-      data.amount,
-      +moneyFormatter.formatSatoshis(+data.amount).toFixed()
-    );
     const options = {
       satoshis: +moneyFormatter.formatSatoshis(+data.amount).toFixed(),
       recipient: data.address,

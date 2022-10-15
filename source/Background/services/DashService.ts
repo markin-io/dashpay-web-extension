@@ -72,7 +72,6 @@ class DashService {
       );
 
       this._wallet.on(EVENTS.BLOCKHEIGHT_CHANGED, async () => {
-        console.log('BLOCKHEIGHT_CHANGED');
         setTimeout(async () => {
           const account = await this._wallet.getAccount();
           const transactionHistory = await account.getTransactionHistory();
@@ -128,6 +127,11 @@ class DashService {
   async getTransactionHistory(): Promise<TransactionHistoryItem[]> {
     const account = await this._wallet.getAccount({synchronize: false});
     return account.getTransactionHistory();
+  }
+
+  async getUnusedAddress(): Promise<string> {
+    const account = await this._wallet.getAccount({synchronize: false});
+    return account.getUnusedAddress();
   }
 
   async createTransaction({
@@ -196,6 +200,8 @@ class DashService {
         );
       case DashService.MESSAGES.BROADCAST_TRANSACTION:
         return this.broadcastTransaction(message.payload as Transaction);
+      case DashService.MESSAGES.GET_UNUSED_ADDRESS:
+        return this.getUnusedAddress();
       default:
         break;
     }

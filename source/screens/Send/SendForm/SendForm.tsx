@@ -1,5 +1,5 @@
-import React, {useMemo, useState} from 'react';
-import {Button, Icon, Input, Label, Modal} from 'semantic-ui-react';
+import React, {useState} from 'react';
+import {Button, Input, Label, Modal} from 'semantic-ui-react';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import {ValidationError} from 'yup';
@@ -11,6 +11,7 @@ import moneyFormatter from '../../../utils/moneyFormatter';
 import ConfirmModal from '../../../components/ConfirmModal';
 import './SendForm.scss';
 import useCreateTransaction from '../../../hooks/useCreateTransaction';
+import Balance from './Balance';
 
 interface IFormInput {
   address: string;
@@ -18,19 +19,15 @@ interface IFormInput {
 }
 
 const SendForm: React.FC = () => {
-  const [showBalance, setShowBalance] = useState(true);
   const [isOpen, setOpen] = useState(false);
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
   const {balance} = useWalletBalance();
   const navigate = useNavigate();
   const {handleCreateTransaction, transaction, handleBroadcastTransaction} =
     useCreateTransaction();
-  const [error, setError] = useState(false);
 
-  const balanceFormatted = useMemo(() => {
-    return moneyFormatter.formatDuffs(balance);
-  }, [balance]);
-
-  const SignupSchema = Yup.object().shape({
+  const SendFormSchema = Yup.object().shape({
     address: Yup.string()
       .required('Address is Required')
       .test(
@@ -52,6 +49,12 @@ const SendForm: React.FC = () => {
           return balance >= moneyFormatter.formatSatoshis(+value);
         }
         return true;
+      })
+      .test('Is positive?', 'The number must be greater than 0!', (value) => {
+        if (value) {
+          return +value >= 0;
+        }
+        return true;
       }),
   });
 
@@ -60,7 +63,7 @@ const SendForm: React.FC = () => {
       address: '',
       amount: 0,
     },
-    validationSchema: SignupSchema,
+    validationSchema: SendFormSchema,
     validateOnChange: true,
     onSubmit: () => undefined,
   });
@@ -77,15 +80,18 @@ const SendForm: React.FC = () => {
   };
 
   const onBroadcastTransaction = (): void => {
+    setLoading(true);
     if (transaction) {
       handleBroadcastTransaction(transaction)
         .then(() => {
           navigate('/popup.html');
+          setLoading(false);
         })
         .catch(() => {
           setOpen(false);
           setError(true);
           setTimeout(() => setError(false), 3000);
+          setLoading(false);
         });
     }
   };
@@ -97,14 +103,7 @@ const SendForm: React.FC = () => {
 
   return (
     <div className="send-form column">
-      <div className="send-form__balance">
-        <span>
-          Balance: {showBalance ? `${balanceFormatted} Dash` : '****'}
-        </span>
-        <Button icon onClick={(): void => setShowBalance((prev) => !prev)}>
-          <Icon name="eye" />
-        </Button>
-      </div>
+      <Balance balance={balance} />
       <div className="send-form__group">
         <div className="send-form__group__item">
           <Label className={classnames(null, {error: !!errors.address})}>
@@ -170,6 +169,7 @@ const SendForm: React.FC = () => {
             address={values.address}
             fee={transaction?.fee || 0}
             onBroadcastTransaction={onBroadcastTransaction}
+            loading={loading}
           />
         </Modal>
       </div>

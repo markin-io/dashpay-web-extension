@@ -21,6 +21,10 @@
     background-position: right center;
     background-size: 10px;
     padding-right: 13px;
+
+    &--negative {
+      color: $shark;
+    }
   }
 
   &__date {

@@ -1,6 +1,7 @@
 import React, {useMemo} from 'react';
 
 import './TransactionListItem.scss';
+import classnames from 'classnames';
 import {TransactionHistoryItem} from '../../../Background/services/types';
 import moneyFormatter from '../../../utils/moneyFormatter';
 
@@ -8,7 +9,14 @@ type Props = {
   transactionHistoryItem: TransactionHistoryItem;
 };
 
-const TransactionListItem = (props: Props) => {
+const isNegative = (value: string | number): boolean => {
+  if (typeof value === 'string' && value?.length > 0) {
+    return value[0] === '-';
+  }
+  return false;
+};
+
+const TransactionListItem: React.FC<Props> = (props) => {
   const {transactionHistoryItem} = props;
 
   const {satoshisBalanceImpact, feeImpact, blockHash} = transactionHistoryItem;
@@ -42,7 +50,13 @@ const TransactionListItem = (props: Props) => {
           <p className="transaction-list-item-unconfirmed">Unconfirmed</p>
         )}
       </div>
-      <span className="transaction-list-item__balance-impact">
+      <span
+        className={classnames('transaction-list-item__balance-impact', {
+          'transaction-list-item__balance-impact--negative': isNegative(
+            balanceImpactFormatted
+          ),
+        })}
+      >
         {balanceImpactFormatted}
       </span>
       {!!blockHash && (
