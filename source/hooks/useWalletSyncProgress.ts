@@ -51,6 +51,16 @@ const useWalletSyncProgress = () => {
       setHeadersSyncProgressInfo(syncProgressInfo.headersSyncProgressInfo);
     };
 
+    const getInitStatus = async (): Promise<boolean> => {
+      return browser.runtime.sendMessage({
+        type: MESSAGES.INIT_STATUS,
+      });
+    };
+
+    getInitStatus()
+      .then((res) => setInitialized(res))
+      .catch(console.error);
+
     getSyncProgressInfo().catch(console.error);
   }, []);
 

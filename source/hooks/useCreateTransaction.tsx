@@ -2,7 +2,17 @@ import {useState} from 'react';
 import {browser} from 'webextension-polyfill-ts';
 import moneyFormatter from '../utils/moneyFormatter';
 import DASH_SERVICE_MESSAGES from '../Background/services/messages';
-import {TransactionInfo} from '../Background/services/types';
+
+type TransactionInfo = {
+  changeIndex: number;
+  changeScript: string;
+  fee: number;
+  hash: string;
+  inputs: [];
+  nLockTime: number;
+  outputs: [];
+  version: number;
+};
 
 const useCreateTransaction = () => {
   const [transaction, setTransaction] = useState<TransactionInfo>();
@@ -24,12 +34,11 @@ const useCreateTransaction = () => {
 
   const handleBroadcastTransaction = async (
     data: TransactionInfo
-  ): Promise<unknown> => {
-    const result = await browser.runtime.sendMessage({
+  ): Promise<string> => {
+    return browser.runtime.sendMessage({
       type: DASH_SERVICE_MESSAGES.BROADCAST_TRANSACTION,
       payload: data,
     });
-    return result;
   };
 
   return {handleCreateTransaction, transaction, handleBroadcastTransaction};

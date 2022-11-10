@@ -9,11 +9,8 @@ type Props = {
   transactionHistoryItem: TransactionHistoryItem;
 };
 
-const isNegative = (value: string | number): boolean => {
-  if (typeof value === 'string' && value?.length > 0) {
-    return value[0] === '-';
-  }
-  return false;
+const isNegative = (value: number): boolean => {
+  return value < 0;
 };
 
 const TransactionListItem: React.FC<Props> = (props) => {
@@ -22,7 +19,7 @@ const TransactionListItem: React.FC<Props> = (props) => {
   const {satoshisBalanceImpact, feeImpact, blockHash} = transactionHistoryItem;
   const balanceImpactFormatted = useMemo(() => {
     const formattedImpact = moneyFormatter.formatDuffs(
-      Math.abs(satoshisBalanceImpact + feeImpact)
+      Math.abs(satoshisBalanceImpact - feeImpact)
     );
 
     if (satoshisBalanceImpact === 0) {
@@ -42,20 +39,26 @@ const TransactionListItem: React.FC<Props> = (props) => {
   }).format(new Date(time));
 
   return (
-    <li className="transaction-list-item">
+    <li
+      className={classnames('transaction-list-item', {
+        'transaction-list-item--unconfirmed': !blockHash,
+      })}
+    >
       <div className="row">
         <span>{type.slice(0, 1).toUpperCase() + type.slice(1)} </span>
-
         {!blockHash && (
-          <p className="transaction-list-item-unconfirmed">Unconfirmed</p>
+          <p className="transaction-list-item__unconfirmed">Unconfirmed</p>
         )}
       </div>
       <span
-        className={classnames('transaction-list-item__balance-impact', {
-          'transaction-list-item__balance-impact--negative': isNegative(
-            balanceImpactFormatted
-          ),
-        })}
+        className={classnames(
+          `transaction-list-item__balance-impact transaction-list-item__balance-impact--${type}`,
+          {
+            'transaction-list-item__balance-impact--negative': isNegative(
+              satoshisBalanceImpact - feeImpact
+            ),
+          }
+        )}
       >
         {balanceImpactFormatted}
       </span>

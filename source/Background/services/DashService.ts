@@ -13,7 +13,6 @@ import {
   SyncProgressInfo,
   TransactionHistoryItem,
   CreateTransactionPayload,
-  TransactionInfo,
 } from './types';
 
 export type Message = {type: string; payload: unknown};
@@ -73,7 +72,7 @@ class DashService {
 
       this._wallet.on(EVENTS.BLOCKHEIGHT_CHANGED, async () => {
         setTimeout(async () => {
-          const account = await this._wallet.getAccount();
+          const account = await this._wallet.getAccount({synchronize: false});
           const transactionHistory = await account.getTransactionHistory();
           await browser.runtime.sendMessage({
             type: DASH_SERVICE_MESSAGE.TRANSACTION_HISTORY_UPDATED,
@@ -102,10 +101,9 @@ class DashService {
         }, 100);
       });
 
-      this._wallet.on(EVENTS.INITIALIZED, () => {
+      account.on(EVENTS.INITIALIZED, () => {
         browser.runtime.sendMessage({type: DASH_SERVICE_MESSAGE.INITIALIZED});
       });
-
       await storageInitPromise;
     }
 
@@ -134,17 +132,22 @@ class DashService {
     return account.getUnusedAddress();
   }
 
+  async getInitialStatus(): Promise<boolean> {
+    const account = await this._wallet.getAccount({synchronize: false});
+    return account.isInitialized();
+  }
+
   async createTransaction({
     recipient,
     satoshis,
-  }: CreateTransactionPayload): Promise<void> {
+  }: CreateTransactionPayload): Promise<Transaction> {
     const account = await this._wallet.getAccount({synchronize: false});
     return account.createTransaction({recipient, satoshis});
   }
 
-  async broadcastTransaction(transaction: TransactionInfo): Promise<string> {
+  async broadcastTransaction(transaction: Transaction): Promise<string> {
     const account = await this._wallet.getAccount({synchronize: false});
-    return account.broadcastTransaction(new Transaction(transaction));
+    return account.broadcastTransaction(transaction);
   }
 
   getCurrentSyncProgress(): SyncProgressInfo {
@@ -188,6 +191,8 @@ class DashService {
       case DashService.MESSAGES.SYNC_WALLET:
         await this.syncWallet();
         break;
+      case DashService.MESSAGES.INIT_STATUS:
+        return this.getInitialStatus();
       case DashService.MESSAGES.GET_CURRENT_SYNC_PROGRESS:
         return this.getCurrentSyncProgress();
       case DashService.MESSAGES.GET_BALANCE:
@@ -199,7 +204,7 @@ class DashService {
           message.payload as CreateTransactionPayload
         );
       case DashService.MESSAGES.BROADCAST_TRANSACTION:
-        return this.broadcastTransaction(message.payload as Transaction);
+        return this.broadcastTransaction(new Transaction(message.payload));
       case DashService.MESSAGES.GET_UNUSED_ADDRESS:
         return this.getUnusedAddress();
       default:

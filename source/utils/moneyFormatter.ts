@@ -9,7 +9,7 @@ const formatDuffs = (
 
 const formatSatoshis = (amount: number, decimalPlaces = 8): number => {
   const satoshiAmount = amount * 10 ** decimalPlaces;
-  return satoshiAmount;
+  return Math.round(satoshiAmount);
 };
 
 const moneyFormatter = {
