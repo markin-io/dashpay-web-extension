@@ -21,7 +21,7 @@ const useCreateTransaction = () => {
     address: string;
   }): Promise<void> => {
     const options = {
-      satoshis: +moneyFormatter.formatSatoshis(+data.amount).toFixed(),
+      satoshis: moneyFormatter.formatSatoshis(+data.amount),
       recipient: data.address,
     };
     const result = await browser.runtime.sendMessage({
