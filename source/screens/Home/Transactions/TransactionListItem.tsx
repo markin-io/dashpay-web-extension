@@ -9,10 +9,6 @@ type Props = {
   transactionHistoryItem: TransactionHistoryItem;
 };
 
-const isNegative = (value: number): boolean => {
-  return value < 0;
-};
-
 const TransactionListItem: React.FC<Props> = (props) => {
   const {transactionHistoryItem} = props;
 
@@ -52,12 +48,7 @@ const TransactionListItem: React.FC<Props> = (props) => {
       </div>
       <span
         className={classnames(
-          `transaction-list-item__balance-impact transaction-list-item__balance-impact--${type}`,
-          {
-            'transaction-list-item__balance-impact--negative': isNegative(
-              satoshisBalanceImpact - feeImpact
-            ),
-          }
+          `transaction-list-item__balance-impact transaction-list-item__balance-impact--${type}`
         )}
       >
         {balanceImpactFormatted}

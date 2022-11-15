@@ -26,17 +26,13 @@
     padding-right: 13px;
 
     &--sent {
-
+      color: $shark;
       background-image: url('chrome-extension://__MSG_@@extension_id__/assets/images/dash-d-black.svg');
     }
     &--received {
-
      background-image: url('chrome-extension://__MSG_@@extension_id__/assets/images/logo-d-blue.svg');
     }
 
-    &--negative {
-      color: $shark;
-    }
   }
 
   &__date {

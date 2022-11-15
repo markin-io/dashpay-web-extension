@@ -45,7 +45,7 @@ const ConfirmModal: React.FC<Props> = ({
         </div>
         <div className="content__row">
           <div className="content__column">Total</div>
-          <div className="content__column--end">{amount - fee / 10 ** 8}</div>
+          <div className="content__column--end">{amount + fee / 10 ** 8}</div>
         </div>
       </div>
 
