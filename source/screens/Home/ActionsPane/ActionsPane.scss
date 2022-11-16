@@ -13,7 +13,6 @@
 }
 
 .actions-pane__button {
-  opacity: 0.5;
   background-color: transparent;
   background-repeat: no-repeat;
   background-position: center top;
@@ -23,11 +22,17 @@
   cursor: pointer;
   width: 100px;
 
-  &--receive {
+
+  &__receive {
     background-image: url('chrome-extension://__MSG_@@extension_id__/assets/images/action-receive.png');
   }
 
-  &--send {
+  &__send {
     background-image: url('chrome-extension://__MSG_@@extension_id__/assets/images/action-send.png');
+    opacity: 0.5;
+
+    &--active {
+      opacity: 1;
+    }
   }
 }

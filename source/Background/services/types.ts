@@ -36,3 +36,8 @@ export type TransactionHistoryItem = {
   satoshisBalanceImpact: number;
   feeImpact: number;
 };
+
+export type CreateTransactionPayload = {
+  satoshis: number;
+  recipient: string;
+};

@@ -11,19 +11,35 @@
   margin-bottom: 8px;
   align-items: center;
 
+  &--unconfirmed {
+    grid-template-rows: 1fr auto;
+  }
+
   &__balance-impact {
     grid-row-start: 1;
     grid-row-end: 3;
     grid-column-start: 2;
     color: $dash-blue;
-    background-image: url('chrome-extension://__MSG_@@extension_id__/assets/images/logo-d-blue.svg');
     background-repeat: no-repeat;
     background-position: right center;
     background-size: 10px;
     padding-right: 13px;
+
+    &--sent {
+      color: $shark;
+      background-image: url('chrome-extension://__MSG_@@extension_id__/assets/images/dash-d-black.svg');
+    }
+    &--received {
+     background-image: url('chrome-extension://__MSG_@@extension_id__/assets/images/logo-d-blue.svg');
+    }
+
   }
 
   &__date {
     color: $raven;
+  }
+  &__unconfirmed {
+    color: #ffcc00;
+    margin-left: 8px;
   }
 }

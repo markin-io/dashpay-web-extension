@@ -1,6 +1,7 @@
 import React, {useMemo} from 'react';
 
 import './TransactionListItem.scss';
+import classnames from 'classnames';
 import {TransactionHistoryItem} from '../../../Background/services/types';
 import moneyFormatter from '../../../utils/moneyFormatter';
 
@@ -8,13 +9,13 @@ type Props = {
   transactionHistoryItem: TransactionHistoryItem;
 };
 
-const TransactionListItem = (props: Props) => {
+const TransactionListItem: React.FC<Props> = (props) => {
   const {transactionHistoryItem} = props;
 
-  const {satoshisBalanceImpact, feeImpact} = transactionHistoryItem;
+  const {satoshisBalanceImpact, feeImpact, blockHash} = transactionHistoryItem;
   const balanceImpactFormatted = useMemo(() => {
     const formattedImpact = moneyFormatter.formatDuffs(
-      Math.abs(satoshisBalanceImpact + feeImpact)
+      Math.abs(satoshisBalanceImpact - feeImpact)
     );
 
     if (satoshisBalanceImpact === 0) {
@@ -34,12 +35,27 @@ const TransactionListItem = (props: Props) => {
   }).format(new Date(time));
 
   return (
-    <li className="transaction-list-item">
-      <span>{type.slice(0, 1).toUpperCase() + type.slice(1)}</span>
-      <span className="transaction-list-item__balance-impact">
+    <li
+      className={classnames('transaction-list-item', {
+        'transaction-list-item--unconfirmed': !blockHash,
+      })}
+    >
+      <div className="row">
+        <span>{type.slice(0, 1).toUpperCase() + type.slice(1)} </span>
+        {!blockHash && (
+          <p className="transaction-list-item__unconfirmed">Unconfirmed</p>
+        )}
+      </div>
+      <span
+        className={classnames(
+          `transaction-list-item__balance-impact transaction-list-item__balance-impact--${type}`
+        )}
+      >
         {balanceImpactFormatted}
       </span>
-      <span className="transaction-list-item__date">{dateFormatted}</span>
+      {!!blockHash && (
+        <span className="transaction-list-item__date">{dateFormatted}</span>
+      )}
     </li>
   );
 };

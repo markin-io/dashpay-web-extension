@@ -1,0 +1,24 @@
+@use "../../styles/colors" as *;
+.modal {
+  &__header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 38px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+
+    .ui.button {
+      background: none;
+      color: $shark;
+    }
+  }
+
+
+  &__button {
+    position: absolute;
+    right: 0;
+
+  }
+}
