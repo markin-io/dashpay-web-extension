@@ -3,6 +3,7 @@ import {Button, Container} from 'semantic-ui-react';
 import './ConfigmModal.scss';
 import moneyFormatter from '../../utils/moneyFormatter';
 import ModalHeader from '../ModalHeader';
+import useFiatConversionRate from '../../hooks/useFiatConversionRate';
 
 type Props = {
   amount: number;
@@ -28,24 +29,33 @@ const ConfirmModal: React.FC<Props> = ({
   onBroadcastTransaction,
   loading,
 }) => {
+  const {formatDash, formatMoneyToString} = moneyFormatter;
+  const {fiatRate} = useFiatConversionRate();
   return (
     <Container className="confirm-modal column">
       <ModalHeader title="Confirm Transaction" onClose={onClose} />
-      <h3>{amount}</h3>
+      <div className="confirm-modal__head">
+        <h3>{amount}</h3>
+        <span className="confirm-modal__fiat">
+          {formatMoneyToString(+amount * fiatRate, 2)} $
+        </span>
+      </div>
       <div className="confirm-modal__content column">
         <div className="content__row">
           <div className="content__column">Sent to</div>
-          <div className="content__column--end">{formatAddress(address)}</div>
+          <div className="content__column--end ">{formatAddress(address)}</div>
         </div>
         <div className="content__row">
           <div className="content__column">Network fee</div>
-          <div className="content__column--end">
-            {moneyFormatter.formatDuffs(fee)}
+          <div className="content__column--end confirm-modal__amount">
+            {formatMoneyToString(formatDash(fee))}
           </div>
         </div>
         <div className="content__row">
           <div className="content__column">Total</div>
-          <div className="content__column--end">{amount + fee / 10 ** 8}</div>
+          <div className="content__column--end confirm-modal__amount">
+            {amount + fee / 10 ** 8}
+          </div>
         </div>
       </div>
 

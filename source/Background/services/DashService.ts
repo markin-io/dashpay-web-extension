@@ -14,6 +14,7 @@ import {
   TransactionHistoryItem,
   CreateTransactionPayload,
 } from './types';
+import FiatConversionService from './FiatConversionService';
 
 export type Message = {type: string; payload: unknown};
 
@@ -21,6 +22,8 @@ class DashService {
   static MESSAGES = DASH_SERVICE_MESSAGE;
 
   private _wallet: any;
+
+  private _usdConversationService = FiatConversionService.getInstance();
 
   constructor() {
     this.init = this.init.bind(this);
@@ -106,6 +109,7 @@ class DashService {
       });
       await storageInitPromise;
     }
+    this._usdConversationService.initConversationRate();
 
     return true;
   }
@@ -183,6 +187,10 @@ class DashService {
     return {txSyncProgressInfo, headersSyncProgressInfo};
   }
 
+  getInitialUsdRate(): number {
+    return this._usdConversationService.getUsdConversationRate();
+  }
+
   async handleMessage(message: Message): Promise<unknown> {
     switch (message.type) {
       case DashService.MESSAGES.INIT_WALLET:
@@ -207,6 +215,8 @@ class DashService {
         return this.broadcastTransaction(new Transaction(message.payload));
       case DashService.MESSAGES.GET_UNUSED_ADDRESS:
         return this.getUnusedAddress();
+      case DashService.MESSAGES.GET_FIAT_CONVERSION_RATE:
+        return this.getInitialUsdRate();
       default:
         break;
     }
