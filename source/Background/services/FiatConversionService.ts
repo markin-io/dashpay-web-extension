@@ -6,7 +6,7 @@ import {RATE_URLS, TEN_MINUTES} from './constants';
 class FiatConversionService {
   private static instance: FiatConversionService;
 
-  private usdRate = 0;
+  private fiatRate = 0;
 
   private init = false;
 
@@ -22,8 +22,8 @@ class FiatConversionService {
     return FiatConversionService.instance;
   }
 
-  public getUsdConversationRate(): number {
-    return this.usdRate;
+  public getFiatConversationRate(): number {
+    return this.fiatRate;
   }
 
   public initConversationRate(): void {
@@ -42,7 +42,7 @@ class FiatConversionService {
       const response = await fetch(RATE_URLS.primary);
       const {exchange_rates: {dash_usd: dashUsd = 0} = {}} =
         await response.json();
-      this.usdRate = dashUsd;
+      this.fiatRate = dashUsd;
       await browser.runtime.sendMessage({
         type: DASH_SERVICE_MESSAGE.FIAT_CONVERSION_RATE_UPDATED,
         payload: dashUsd,
@@ -59,7 +59,7 @@ class FiatConversionService {
     );
     console.log(`fetch data from ${response.url}`);
     const result = await response.json();
-    this.usdRate = this.formatResponse(result);
+    this.fiatRate = this.formatResponse(result);
     await browser.runtime.sendMessage({
       type: DASH_SERVICE_MESSAGE.FIAT_CONVERSION_RATE_UPDATED,
       payload: this.formatResponse(result),

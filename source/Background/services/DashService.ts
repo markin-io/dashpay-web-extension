@@ -23,7 +23,7 @@ class DashService {
 
   private _wallet: any;
 
-  private _usdConversationService = FiatConversionService.getInstance();
+  private _fiatConversationService = FiatConversionService.getInstance();
 
   constructor() {
     this.init = this.init.bind(this);
@@ -109,7 +109,7 @@ class DashService {
       });
       await storageInitPromise;
     }
-    this._usdConversationService.initConversationRate();
+    this._fiatConversationService.initConversationRate();
 
     return true;
   }
@@ -188,7 +188,7 @@ class DashService {
   }
 
   getInitialUsdRate(): number {
-    return this._usdConversationService.getUsdConversationRate();
+    return this._fiatConversationService.getFiatConversationRate();
   }
 
   async handleMessage(message: Message): Promise<unknown> {
