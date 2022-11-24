@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 
 import {browser} from 'webextension-polyfill-ts';
 
-import DASH_SERVICE_MESSAGES from '../Background/services/messages';
+import {DASH_SERVICE_MESSAGES} from '../Background/services/messages';
 import {TransactionHistoryItem} from '../Background/services/types';
 
 const useTransactionHistory = () => {

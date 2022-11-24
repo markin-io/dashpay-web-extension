@@ -5,13 +5,13 @@ import './Transactions.scss';
 import useWalletSyncProgress from '../../../hooks/useWalletSyncProgress';
 import useTransactionHistory from '../../../hooks/useTransactionHistory';
 import TransactionListItem from './TransactionListItem';
-import useFiatConversionRate from '../../../hooks/useFiatConversionRate';
+import useDashQuotes from '../../../hooks/useDashQuotes';
 
 const Transactions: React.FC = () => {
   const {txSyncProgressInfo, headersSyncProgressInfo} = useWalletSyncProgress();
 
   const {transactionHistory} = useTransactionHistory();
-  const {fiatRate} = useFiatConversionRate();
+  const {dashUsdRate} = useDashQuotes();
 
   return (
     <div className="transactions">
@@ -51,7 +51,7 @@ const Transactions: React.FC = () => {
                     <TransactionListItem
                       transactionHistoryItem={transactionHistoryItem}
                       key={transactionHistoryItem.txId}
-                      fiatRate={fiatRate}
+                      dashUsdRate={dashUsdRate}
                     />
                   );
                 })}

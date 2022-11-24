@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {browser} from 'webextension-polyfill-ts';
 import moneyFormatter from '../utils/moneyFormatter';
-import DASH_SERVICE_MESSAGES from '../Background/services/messages';
+import {DASH_SERVICE_MESSAGES} from '../Background/services/messages';
 
 type TransactionInfo = {
   changeIndex: number;

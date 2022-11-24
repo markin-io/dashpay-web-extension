@@ -5,21 +5,21 @@ import logo from '../../../assets/images/logo.png';
 import useWalletBalance from '../../../hooks/useWalletBalance';
 import useWalletSyncProgress from '../../../hooks/useWalletSyncProgress';
 import moneyFormatter from '../../../utils/moneyFormatter';
-import useFiatConversionRate from '../../../hooks/useFiatConversionRate';
+import useDashQuotes from '../../../hooks/useDashQuotes';
 
 const Header = () => {
   const {balance} = useWalletBalance();
-  const {fiatRate} = useFiatConversionRate();
+  const {dashUsdRate} = useDashQuotes();
   const {initialized} = useWalletSyncProgress();
-  const {formatMoneyToString, formatDash} = moneyFormatter;
+  const {formatMoney, duffsToDash} = moneyFormatter;
 
   const balanceFormatted = useMemo(() => {
-    return formatMoneyToString(formatDash(balance));
+    return formatMoney(duffsToDash(balance));
   }, [balance]);
 
   const fiatBalanceFormatted = useMemo((): string => {
-    return formatMoneyToString(formatDash(balance) * fiatRate, 2);
-  }, [balance, fiatRate]);
+    return formatMoney(duffsToDash(balance) * dashUsdRate, 2);
+  }, [balance, dashUsdRate]);
 
   return (
     <header className="header">

@@ -6,7 +6,7 @@ import {browser} from 'webextension-polyfill-ts';
 import {Outlet} from 'react-router-dom';
 import Splash from '../screens/Splash';
 import MESSAGES from '../Background/messages';
-import DASH_SERVICE_MESSAGES from '../Background/services/messages';
+import {DASH_SERVICE_MESSAGES} from '../Background/services/messages';
 
 const Popup: React.FC = () => {
   const [loading, setLoading] = useState(true);

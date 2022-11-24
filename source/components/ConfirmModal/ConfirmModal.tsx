@@ -3,7 +3,7 @@ import {Button, Container} from 'semantic-ui-react';
 import './ConfigmModal.scss';
 import moneyFormatter from '../../utils/moneyFormatter';
 import ModalHeader from '../ModalHeader';
-import useFiatConversionRate from '../../hooks/useFiatConversionRate';
+import useDashQuotes from '../../hooks/useDashQuotes';
 
 type Props = {
   amount: number;
@@ -29,15 +29,15 @@ const ConfirmModal: React.FC<Props> = ({
   onBroadcastTransaction,
   loading,
 }) => {
-  const {formatDash, formatMoneyToString} = moneyFormatter;
-  const {fiatRate} = useFiatConversionRate();
+  const {duffsToDash, formatMoney} = moneyFormatter;
+  const {dashUsdRate} = useDashQuotes();
   return (
     <Container className="confirm-modal column">
       <ModalHeader title="Confirm Transaction" onClose={onClose} />
       <div className="confirm-modal__head">
         <h3>{amount}</h3>
         <span className="confirm-modal__fiat">
-          {formatMoneyToString(+amount * fiatRate, 2)} $
+          {formatMoney(+amount * dashUsdRate, 2)} $
         </span>
       </div>
       <div className="confirm-modal__content column">
@@ -48,7 +48,7 @@ const ConfirmModal: React.FC<Props> = ({
         <div className="content__row">
           <div className="content__column">Network fee</div>
           <div className="content__column--end confirm-modal__amount">
-            {formatMoneyToString(formatDash(fee))}
+            {formatMoney(duffsToDash(fee))}
           </div>
         </div>
         <div className="content__row">

@@ -7,17 +7,17 @@ import moneyFormatter from '../../../utils/moneyFormatter';
 
 type Props = {
   transactionHistoryItem: TransactionHistoryItem;
-  fiatRate: number;
+  dashUsdRate: number;
 };
 
 const TransactionListItem: React.FC<Props> = (props) => {
-  const {transactionHistoryItem, fiatRate} = props;
-  const {formatDash, formatMoneyToString} = moneyFormatter;
+  const {transactionHistoryItem, dashUsdRate} = props;
+  const {duffsToDash, formatMoney} = moneyFormatter;
 
   const {satoshisBalanceImpact, feeImpact, blockHash} = transactionHistoryItem;
   const balanceImpactFormatted = useMemo(() => {
-    const formattedImpact = formatMoneyToString(
-      formatDash(Math.abs(satoshisBalanceImpact - feeImpact))
+    const formattedImpact = formatMoney(
+      duffsToDash(Math.abs(satoshisBalanceImpact - feeImpact))
     );
 
     if (satoshisBalanceImpact === 0) {
@@ -29,11 +29,11 @@ const TransactionListItem: React.FC<Props> = (props) => {
   }, [satoshisBalanceImpact, feeImpact]);
 
   const fiatImpact = useMemo(() => {
-    return formatMoneyToString(
-      formatDash(Math.abs(satoshisBalanceImpact - feeImpact)) * fiatRate,
+    return formatMoney(
+      duffsToDash((satoshisBalanceImpact - feeImpact) * dashUsdRate),
       2
     );
-  }, [fiatRate, satoshisBalanceImpact, feeImpact]);
+  }, [dashUsdRate, satoshisBalanceImpact, feeImpact]);
 
   const {type, time} = transactionHistoryItem;
   const dateFormatted = Intl.DateTimeFormat('default', {
@@ -65,7 +65,7 @@ const TransactionListItem: React.FC<Props> = (props) => {
           {blockHash ? dateFormatted : ''}
         </div>
         <div className="content__column--end transaction-list-item__secondary">
-          {fiatImpact === '0,00' ? ' > 0,01' : fiatImpact} $
+          {fiatImpact === '0,00' ? ' < 0,01' : fiatImpact} $
         </div>
       </div>
     </li>
