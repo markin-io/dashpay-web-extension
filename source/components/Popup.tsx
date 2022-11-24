@@ -10,6 +10,7 @@ import DASH_SERVICE_MESSAGES from '../Background/services/messages';
 
 const Popup: React.FC = () => {
   const [loading, setLoading] = useState(true);
+  const [newAccount, setNewAccount] = useState(false);
 
   useEffect(() => {
     const initSdk = async (): Promise<void> => {
@@ -20,10 +21,16 @@ const Popup: React.FC = () => {
       setLoading(false);
     };
 
-    initSdk().catch(console.error);
+    browser.storage.local.get('mnemonic').then((res) => {
+      if (res?.mnemonic) {
+        initSdk().catch(console.error);
+      } else {
+        setNewAccount(true);
+      }
+    });
   }, []);
 
-  return loading ? <Splash /> : <Outlet />;
+  return loading ? <Splash newAccount={newAccount} /> : <Outlet />;
 };
 
 export default Popup;

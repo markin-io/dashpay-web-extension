@@ -100,7 +100,19 @@
     "wext-manifest-webpack-plugin": "^1.2.1"
   },
   "resolutions": {
-    "buffer": "5.5.0"
+    "buffer": "5.5.0",
+    "@dashevo/dapi-grpc": "portal:/Users/strayko/work/inc/platform/packages/dapi-grpc",
+    "@dashevo/dash-spv": "portal:/Users/strayko/work/inc/platform/packages/dash-spv",
+    "dashmate": "portal:/Users/strayko/work/inc/platform/packages/dashmate",
+    "@dashevo/dashpay-contract": "portal:/Users/strayko/work/inc/platform/packages/dashpay-contract",
+    "@dashevo/dpns-contract": "portal:/Users/strayko/work/inc/platform/packages/dpns-contract",
+    "@dashevo/feature-flags-contract": "portal:/Users/strayko/work/inc/platform/packages/feature-flags-contract",
+    "@dashevo/dapi-client": "portal:/Users/strayko/work/inc/platform/packages/js-dapi-client",
+    "dash": "portal:/Users/strayko/work/inc/platform/packages/js-dash-sdk",
+    "@dashevo/dpp": "portal:/Users/strayko/work/inc/platform/packages/js-dpp",
+    "@dashevo/grpc-common": "portal:/Users/strayko/work/inc/platform/packages/js-grpc-common",
+    "@dashevo/masternode-reward-shares-contract": "portal:/Users/strayko/work/inc/platform/packages/masternode-reward-shares-contract",
+    "@dashevo/wallet-lib": "portal:/Users/strayko/work/inc/platform/packages/wallet-lib"
   },
   "packageManager": "yarn@3.2.4"
 }
