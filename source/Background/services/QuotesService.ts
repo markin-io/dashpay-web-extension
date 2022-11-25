@@ -37,18 +37,16 @@ class QuotesService {
 
   public init(): void {
     if (!this.initialized) {
-      this.fetchQuotes()
-        .then(() => {
-          setInterval(() => this.fetchQuotes(), QUOTES_FETCHING_INTERVAL);
-          this.initialized = true;
-        })
-        .catch((e) => console.error(e));
+      this.fetchQuotes().then(() => {
+        setInterval(() => this.fetchQuotes(), QUOTES_FETCHING_INTERVAL);
+        this.initialized = true;
+      });
     }
   }
 
   async fetchQuotes(): Promise<void> {
-    try {
-      for (let i = 0; i < QUOTES_API_URLS.length; i + 1) {
+    for (let i = 0; i < QUOTES_API_URLS.length; i + 1) {
+      try {
         const response = await fetch(QUOTES_API_URLS[i]);
         if (response.ok) {
           const data = await response.json();
@@ -60,9 +58,9 @@ class QuotesService {
           });
           break;
         }
+      } catch (e) {
+        i += 1;
       }
-    } catch (e) {
-      console.error(e);
     }
   }
 

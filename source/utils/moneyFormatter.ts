@@ -1,7 +1,5 @@
-const duffsToDash = (duffsAmount: number): number => {
-  const power = 10 ** 8;
-  const rounded = Math.round(duffsAmount * power) / power;
-  return rounded / power;
+const duffsToDash = (duffsAmount: number, decimalPlaces = 8): number => {
+  return duffsAmount / 10 ** decimalPlaces;
 };
 
 const formatMoney = (

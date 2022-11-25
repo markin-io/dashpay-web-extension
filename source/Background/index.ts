@@ -28,7 +28,6 @@ browser.runtime.onInstalled.addListener((): void => {
 const messageHandler = async (message: Message): Promise<unknown> => {
   if (!initialized) {
     if (message.type === MESSAGES.INIT) {
-      console.log('MESSAGES.INIT');
       services.dashService = new DashService();
       services.quotesService = QuotesService.getInstance();
       initialized = true;
