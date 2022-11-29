@@ -45,7 +45,7 @@ class QuotesService {
   }
 
   async fetchQuotes(): Promise<void> {
-    for (let i = 0; i < QUOTES_API_URLS.length; i + 1) {
+    for (let i = 0; i < QUOTES_API_URLS.length; i += 1) {
       try {
         const response = await fetch(QUOTES_API_URLS[i]);
         if (response.ok) {
@@ -59,7 +59,7 @@ class QuotesService {
           break;
         }
       } catch (e) {
-        i += 1;
+        console.error(e);
       }
     }
   }
