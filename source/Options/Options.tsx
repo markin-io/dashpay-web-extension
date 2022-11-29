@@ -1,15 +1,12 @@
 import * as React from 'react';
 
 import {browser} from 'webextension-polyfill-ts';
-import {useNavigate} from 'react-router-dom';
 
 import './styles.scss';
 import {FormEvent} from 'react';
 
 const Options: React.FC = () => {
   const [mnemonic, setMnemonic] = React.useState('');
-  const navigate = useNavigate();
-  console.log(navigate);
 
   const onSubmit = (e: FormEvent): void => {
     e.preventDefault();

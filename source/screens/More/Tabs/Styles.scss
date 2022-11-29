@@ -1,30 +1,12 @@
-.import-wallet {
+.reset-wallet {
+  padding: 16px;
+  text-align: center;
   height: 100%;
 
-  &__button {
-    margin: auto 20px 20px 20px;
-  }
-
-  &__nav {
-    margin: 20px;
-
-    button {
-      transition: all 0.7s ease-in-out;
-    }
-
-    button:hover {
-      cursor: pointer;
-      transform: scale(1.1);
-      transition: 0.7s;
-    }
-  }
-
-  &__header {
+  h5 {
     font-weight: 700;
-    font-size: 32px;
-    line-height: 40px;
-    padding: 0px 20px;
-    margin-bottom: 20px;
+    font-size: 24px;
+    line-height: 30px;
   }
 
   &__input {
@@ -50,6 +32,9 @@
     }
   }
 
+  &__button {
+    margin-top: auto;
+  }
   &__label {
     color: #524C66;
     font-size: 12px;
@@ -64,8 +49,23 @@
       margin-bottom: 2px;
     }
   }
-  .suffix {
-    margin: 0px 24px;
+
+  &__modal {
+    padding: 16px;
+    gap: 8px;
+
+    &__tile {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+    }
+    &__subtitle {
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 18px;
+      color: #525C66;
+      margin-bottom: 16px;
+    }
 
   }
 }

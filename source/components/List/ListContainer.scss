@@ -1,0 +1,17 @@
+@use "../../styles/colors" as *;
+.list {
+  &__content {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  &__element {
+    &__subtitle {
+      color: $raven;
+      font-size: 12px;
+      line-height: 18px;
+      font-weight: 400;
+    }
+  }
+}

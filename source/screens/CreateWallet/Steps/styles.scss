@@ -1,0 +1,94 @@
+@use "../../../styles/colors" as *;
+.step {
+  height: 100%;
+  padding: 16px;
+
+  &__nav{
+    display: flex;
+
+    &--skip {
+      justify-content: end;
+    }
+    button {
+      color: $dash-blue;
+      background-color: transparent;
+      cursor: pointer;
+    }
+  }
+  &__content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 12px;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+  }
+
+  &__header {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  &__text {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  &__buttons {
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  &__warning {
+    text-align: left;
+    .center {
+      align-items: center;
+    }
+    &__title {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 22px;
+    }
+    &__subtitle {
+      font-weight: 400;
+      font-size: 13px;
+      line-height: 18px;
+      color: #525C66;
+    }
+  }
+
+  &__verify {
+
+    &__title {
+      font-weight: 700;
+      font-size: 32px;
+      line-height: 40px;
+    }
+
+    &__subtitle {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: #525C66;
+    }
+
+    &__words {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px
+    }
+
+    &__buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px
+    }
+  }
+
+}

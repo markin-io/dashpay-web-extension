@@ -1,0 +1,40 @@
+@use "../../styles/colors" as *;
+.c-button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  background-color: $dash-blue;
+  color: white;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 24px;
+
+  &:hover {
+    background-color: transparent;
+    outline: 2px solid $dash-blue;
+    cursor: pointer;
+    color: $dash-blue;
+    outline-offset: -2px;
+  }
+  &:focus {
+    outline: 2px solid $dash-blue !important;
+  }
+
+  &--link {
+    background-color: transparent;
+    color: $dash-blue;
+
+    &:hover {
+      background-color: transparent;
+      outline: none;
+      cursor: pointer;
+      color: $dash-blue;
+      opacity: 0.7;
+    }
+    &:focus {
+      outline: none !important;
+    }
+
+  }
+
+}
