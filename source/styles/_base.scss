@@ -47,3 +47,15 @@ h3 {
   background: colors.$dash-blue;
   color: colors.$white;
 }
+
+.content {
+  &__row {
+    display: flex;
+  }
+  &__column {
+    flex: 50%;
+    &--end {
+      text-align: end;
+    }
+  }
+}

@@ -1,25 +1,22 @@
 @use "../../../styles/colors" as *;
 
 .transaction-list-item {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  grid-template-rows: 1fr 1fr;
-  height: 64px;
   background-color: white;
   border-radius: 12px;
   padding: 14px 10px;
   margin-bottom: 8px;
-  align-items: center;
 
-  &--unconfirmed {
-    grid-template-rows: 1fr auto;
+  &__secondary {
+    color: $raven;
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 400;
   }
-
+  &__unconfirmed {
+    color: #ffcc00;
+    margin-left: 8px;
+  }
   &__balance-impact {
-    grid-row-start: 1;
-    grid-row-end: 3;
-    grid-column-start: 2;
-    color: $dash-blue;
     background-repeat: no-repeat;
     background-position: right center;
     background-size: 10px;
@@ -30,16 +27,8 @@
       background-image: url('chrome-extension://__MSG_@@extension_id__/assets/images/dash-d-black.svg');
     }
     &--received {
-     background-image: url('chrome-extension://__MSG_@@extension_id__/assets/images/logo-d-blue.svg');
+      color: $dash-blue;
+      background-image: url('chrome-extension://__MSG_@@extension_id__/assets/images/logo-d-blue.svg');
     }
-
-  }
-
-  &__date {
-    color: $raven;
-  }
-  &__unconfirmed {
-    color: #ffcc00;
-    margin-left: 8px;
   }
 }

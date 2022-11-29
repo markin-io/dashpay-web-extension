@@ -3,7 +3,7 @@ import {Button, Icon} from 'semantic-ui-react';
 import {browser} from 'webextension-polyfill-ts';
 import classnames from 'classnames';
 import ModalHeader from '../ModalHeader';
-import DASH_SERVICE_MESSAGES from '../../Background/services/messages';
+import {DASH_SERVICE_MESSAGES} from '../../Background/services/messages';
 import './ReceiveModal.scss';
 
 type Props = {

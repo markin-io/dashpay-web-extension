@@ -6,19 +6,18 @@ import {Wallet, EVENTS, CONSTANTS} from '@dashevo/wallet-lib';
 import localforage from 'localforage';
 import {browser} from 'webextension-polyfill-ts';
 
-import DASH_SERVICE_MESSAGE from './messages';
+import {DASH_SERVICE_MESSAGES} from './messages';
 import {
   HeadersSyncProgressInfo,
   TxSyncProgressInfo,
   SyncProgressInfo,
   TransactionHistoryItem,
   CreateTransactionPayload,
+  Message,
 } from './types';
 
-export type Message = {type: string; payload: unknown};
-
 class DashService {
-  static MESSAGES = DASH_SERVICE_MESSAGE;
+  static MESSAGES = DASH_SERVICE_MESSAGES;
 
   private _wallet: any;
 
@@ -54,7 +53,7 @@ class DashService {
         EVENTS.HEADERS_SYNC_PROGRESS,
         async (progressInfo: HeadersSyncProgressInfo) => {
           await browser.runtime.sendMessage({
-            type: DASH_SERVICE_MESSAGE.HEADERS_SYNC_PROGRESS_UPDATED,
+            type: DASH_SERVICE_MESSAGES.HEADERS_SYNC_PROGRESS_UPDATED,
             payload: progressInfo,
           });
         }
@@ -64,7 +63,7 @@ class DashService {
         EVENTS.TRANSACTIONS_SYNC_PROGRESS,
         async (progressInfo: TxSyncProgressInfo) => {
           await browser.runtime.sendMessage({
-            type: DASH_SERVICE_MESSAGE.TX_SYNC_PROGRESS_UPDATED,
+            type: DASH_SERVICE_MESSAGES.TX_SYNC_PROGRESS_UPDATED,
             payload: progressInfo,
           });
         }
@@ -75,7 +74,7 @@ class DashService {
           const account = await this._wallet.getAccount({synchronize: false});
           const transactionHistory = await account.getTransactionHistory();
           await browser.runtime.sendMessage({
-            type: DASH_SERVICE_MESSAGE.TRANSACTION_HISTORY_UPDATED,
+            type: DASH_SERVICE_MESSAGES.TRANSACTION_HISTORY_UPDATED,
             payload: transactionHistory,
           });
         }, 500);
@@ -91,18 +90,18 @@ class DashService {
           const balance = await account.getTotalBalance();
           const transactionHistory = await account.getTransactionHistory();
           await browser.runtime.sendMessage({
-            type: DASH_SERVICE_MESSAGE.BALANCE_UPDATED,
+            type: DASH_SERVICE_MESSAGES.BALANCE_UPDATED,
             payload: balance,
           });
           await browser.runtime.sendMessage({
-            type: DASH_SERVICE_MESSAGE.TRANSACTION_HISTORY_UPDATED,
+            type: DASH_SERVICE_MESSAGES.TRANSACTION_HISTORY_UPDATED,
             payload: transactionHistory,
           });
         }, 100);
       });
 
       account.on(EVENTS.INITIALIZED, () => {
-        browser.runtime.sendMessage({type: DASH_SERVICE_MESSAGE.INITIALIZED});
+        browser.runtime.sendMessage({type: DASH_SERVICE_MESSAGES.INITIALIZED});
       });
       await storageInitPromise;
     }
