@@ -7,7 +7,7 @@ import Screen from '../Screen';
 import Header from './Header';
 import Transactions from './Transactions';
 import ActionsPane from './ActionsPane';
-import DASH_SERVICE_MESSAGES from '../../Background/services/messages';
+import {DASH_SERVICE_MESSAGES} from '../../Background/services/messages';
 
 const Home = () => {
   useEffect(() => {

@@ -7,15 +7,17 @@ import moneyFormatter from '../../../utils/moneyFormatter';
 
 type Props = {
   transactionHistoryItem: TransactionHistoryItem;
+  dashUsdRate: number;
 };
 
 const TransactionListItem: React.FC<Props> = (props) => {
-  const {transactionHistoryItem} = props;
+  const {transactionHistoryItem, dashUsdRate} = props;
+  const {duffsToDash, formatMoney} = moneyFormatter;
 
   const {satoshisBalanceImpact, feeImpact, blockHash} = transactionHistoryItem;
   const balanceImpactFormatted = useMemo(() => {
-    const formattedImpact = moneyFormatter.formatDuffs(
-      Math.abs(satoshisBalanceImpact - feeImpact)
+    const formattedImpact = formatMoney(
+      duffsToDash(Math.abs(satoshisBalanceImpact - feeImpact))
     );
 
     if (satoshisBalanceImpact === 0) {
@@ -24,7 +26,14 @@ const TransactionListItem: React.FC<Props> = (props) => {
     return satoshisBalanceImpact < 0
       ? `-${formattedImpact}`
       : `+${formattedImpact}`;
-  }, [satoshisBalanceImpact]);
+  }, [satoshisBalanceImpact, feeImpact]);
+
+  const fiatImpact = useMemo(() => {
+    return formatMoney(
+      duffsToDash((satoshisBalanceImpact - feeImpact) * dashUsdRate),
+      2
+    );
+  }, [dashUsdRate, satoshisBalanceImpact, feeImpact]);
 
   const {type, time} = transactionHistoryItem;
   const dateFormatted = Intl.DateTimeFormat('default', {
@@ -35,27 +44,30 @@ const TransactionListItem: React.FC<Props> = (props) => {
   }).format(new Date(time));
 
   return (
-    <li
-      className={classnames('transaction-list-item', {
-        'transaction-list-item--unconfirmed': !blockHash,
-      })}
-    >
-      <div className="row">
-        <span>{type.slice(0, 1).toUpperCase() + type.slice(1)} </span>
-        {!blockHash && (
-          <p className="transaction-list-item__unconfirmed">Unconfirmed</p>
-        )}
+    <li className="transaction-list-item">
+      <div className="content__row">
+        <div className="content__column row">
+          <span>{type.slice(0, 1).toUpperCase() + type.slice(1)} </span>
+          {!blockHash && (
+            <p className="transaction-list-item__unconfirmed">Unconfirmed</p>
+          )}
+        </div>
+        <div
+          className={classnames(
+            `content__column--end transaction-list-item__balance-impact transaction-list-item__balance-impact--${type}`
+          )}
+        >
+          {balanceImpactFormatted}
+        </div>
       </div>
-      <span
-        className={classnames(
-          `transaction-list-item__balance-impact transaction-list-item__balance-impact--${type}`
-        )}
-      >
-        {balanceImpactFormatted}
-      </span>
-      {!!blockHash && (
-        <span className="transaction-list-item__date">{dateFormatted}</span>
-      )}
+      <div className="content__row">
+        <div className="content__column transaction-list-item__secondary">
+          {blockHash ? dateFormatted : ''}
+        </div>
+        <div className="content__column--end transaction-list-item__secondary">
+          {fiatImpact === '0,00' ? ' < 0,01' : fiatImpact} $
+        </div>
+      </div>
     </li>
   );
 };

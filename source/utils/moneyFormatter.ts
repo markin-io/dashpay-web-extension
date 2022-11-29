@@ -1,10 +1,16 @@
-const formatDuffs = (
-  duffsAmount: number,
-  decimalPlaces = 8,
+const duffsToDash = (duffsAmount: number, decimalPlaces = 8): number => {
+  return duffsAmount / 10 ** decimalPlaces;
+};
+
+const formatMoney = (
+  amount: number,
+  decimalPlaces = 0,
   decimalSeparator = ','
 ): string => {
-  const dashAmount = duffsAmount / 10 ** decimalPlaces;
-  return dashAmount.toString().replace('.', decimalSeparator);
+  if (decimalPlaces) {
+    return amount.toFixed(decimalPlaces).replace('.', decimalSeparator);
+  }
+  return amount.toString().replace('.', decimalSeparator);
 };
 
 const formatSatoshis = (amount: number, decimalPlaces = 8): number => {
@@ -13,7 +19,8 @@ const formatSatoshis = (amount: number, decimalPlaces = 8): number => {
 };
 
 const moneyFormatter = {
-  formatDuffs,
   formatSatoshis,
+  duffsToDash,
+  formatMoney,
 };
 export default moneyFormatter;

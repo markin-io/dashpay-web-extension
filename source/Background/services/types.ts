@@ -41,3 +41,5 @@ export type CreateTransactionPayload = {
   satoshis: number;
   recipient: string;
 };
+
+export type Message = {type: string; payload: unknown};
