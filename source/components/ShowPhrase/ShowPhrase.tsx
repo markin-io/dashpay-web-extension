@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, memo} from 'react';
 import {browser} from 'webextension-polyfill-ts';
 import './ShowPhrase.scss';
 import WarningIcon from '../Icons/WarningIcon';
@@ -7,11 +7,11 @@ const ShowPhrase: React.FC = () => {
   const [mnemonic, setMnemonic] = useState('');
 
   useEffect(() => {
-    const getMenmonic = async (): Promise<void> => {
+    const getMnemonic = async (): Promise<void> => {
       const result = await browser.storage.local.get('mnemonic');
       setMnemonic(result.mnemonic);
     };
-    getMenmonic().catch(console.error);
+    getMnemonic().catch(console.error);
   }, []);
 
   return (
@@ -34,4 +34,4 @@ const ShowPhrase: React.FC = () => {
   );
 };
 
-export default ShowPhrase;
+export default memo(ShowPhrase);

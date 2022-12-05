@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React, {useMemo, memo} from 'react';
 
 import './Header.scss';
 import {useNavigate} from 'react-router-dom';
@@ -31,7 +31,7 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header__more">
-        <button onClick={onOpenMore}>
+        <button onClick={onOpenMore} type="button">
           <MoreIcon />
         </button>
       </div>
@@ -58,4 +58,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default memo(Header);

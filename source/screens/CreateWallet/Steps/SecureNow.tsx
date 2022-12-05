@@ -1,4 +1,5 @@
 import React from 'react';
+import {useNavigate} from 'react-router-dom';
 import Button from '../../../components/Buttons';
 import LockIcon from '../../../components/Icons/LockIcon';
 
@@ -7,10 +8,14 @@ type Props = {
   onNextStep: () => void;
 };
 const SecureNow: React.FC<Props> = ({onNextStep}) => {
+  const navigate = useNavigate();
+
   return (
     <div className="step column">
       <div className="step__nav step__nav--skip">
-        <button type="button">Skip</button>
+        <button type="button" onClick={(): void => navigate('/popup.html')}>
+          Skip
+        </button>
       </div>
       <div className="step__content">
         <div>

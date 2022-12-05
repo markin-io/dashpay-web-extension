@@ -76,7 +76,7 @@ const More: React.FC = () => {
             key={item.name}
             start={item.icon}
             name={item.name}
-            action={() => item.action(navigate)}
+            action={(): void => item.action(navigate)}
           >
             {item.content}
           </ListElement>

@@ -1,15 +1,11 @@
 import * as React from 'react';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import {Mnemonic} from '@dashevo/dashcore-lib';
-
-import './styles.scss';
 import {useEffect, useState} from 'react';
 import {browser} from 'webextension-polyfill-ts';
 import {Outlet} from 'react-router-dom';
 import Splash from '../screens/Splash';
 import MESSAGES from '../Background/messages';
 import {DASH_SERVICE_MESSAGES} from '../Background/services/messages';
+import './styles.scss';
 
 async function initSdk(fn: () => void): Promise<void> {
   await browser.runtime.sendMessage({type: MESSAGES.INIT});
@@ -35,8 +31,7 @@ const Popup: React.FC = () => {
   }, []);
 
   const handleCreateMnemonic = (): void => {
-    const code = new Mnemonic();
-    browser.storage.local.set({mnemonic: code.toString()});
+    initSdk(() => undefined).catch(console.error);
   };
 
   return loading ? (
