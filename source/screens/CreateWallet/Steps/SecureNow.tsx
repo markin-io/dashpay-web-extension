@@ -1,7 +1,8 @@
 import React from 'react';
 import {useNavigate} from 'react-router-dom';
 import Button from '../../../components/Buttons';
-import LockIcon from '../../../components/Icons/LockIcon';
+import {LockIcon} from '../../../assets/icons';
+import Icon from '../../../components/Icon';
 
 type Props = {
   onBackStep: () => void;
@@ -19,7 +20,7 @@ const SecureNow: React.FC<Props> = ({onNextStep}) => {
       </div>
       <div className="step__content">
         <div>
-          <LockIcon />
+          <Icon icon={LockIcon} />
         </div>
         <h5 className="step__header">Secure your wallet</h5>
         <span className="step__text">

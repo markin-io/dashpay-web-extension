@@ -1,9 +1,8 @@
 import React from 'react';
 import Button from '../../../components/Buttons';
-import CloudIcon from '../../../components/Icons/CloudIcon';
-import SadIcon from '../../../components/Icons/SadIcon';
-import BackupIcon from '../../../components/Icons/BackupIcon';
+import {CloudIcon, SadIcon, BackUpIcon} from '../../../assets/icons';
 import {IconBack} from '../../../components/NavigateBack/IconBack';
+import Icon from '../../../components/Icon/Icon';
 
 type Props = {
   onBackStep?: () => void;
@@ -14,14 +13,15 @@ const BackupWallet: React.FC<Props> = ({onNextStep, onBackStep}) => {
     <div className="step column">
       <div className="step__nav">
         {onBackStep && (
-          <button onClick={onBackStep}>
+          <button onClick={onBackStep} type="button">
             <IconBack fill="#191C1F" />
           </button>
         )}
       </div>
       <div className="step__content">
         <div>
-          <BackupIcon />
+          <Icon icon={BackUpIcon} />
+          {/* <BackupIcon /> */}
         </div>
         <h5 className="step__header">
           Backup your wallet with a recovery phrase
@@ -35,7 +35,7 @@ const BackupWallet: React.FC<Props> = ({onNextStep, onBackStep}) => {
         <div className="step__warning column">
           <div className="row center">
             <div>
-              <CloudIcon />
+              <Icon icon={CloudIcon} />
             </div>
             <span className="step__warning__title">
               We do NOT store this recovery phrase
@@ -43,7 +43,7 @@ const BackupWallet: React.FC<Props> = ({onNextStep, onBackStep}) => {
           </div>
           <div className="row">
             <div>
-              <SadIcon />
+              <Icon icon={SadIcon} />
             </div>
             <div className="column">
               <span className="step__warning__title">

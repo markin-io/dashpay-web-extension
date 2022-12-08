@@ -1,0 +1,5 @@
+.svg-icon {
+  img:not([height]), img:not([width]) {
+    filter: none;
+  }
+}

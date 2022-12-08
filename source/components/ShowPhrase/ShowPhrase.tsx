@@ -1,7 +1,8 @@
 import React, {useEffect, useState, memo} from 'react';
 import {browser} from 'webextension-polyfill-ts';
 import './ShowPhrase.scss';
-import WarningIcon from '../Icons/WarningIcon';
+import {WarningIcon} from '../../assets/icons';
+import Icon from '../Icon';
 
 const ShowPhrase: React.FC = () => {
   const [mnemonic, setMnemonic] = useState('');
@@ -25,7 +26,7 @@ const ShowPhrase: React.FC = () => {
       </div>
 
       <div className="phrase__warning">
-        <WarningIcon />
+        <Icon icon={WarningIcon} />
         <span className="phrase__warning__text">
           Do NOT let anyone to see your recovery phrase.
         </span>

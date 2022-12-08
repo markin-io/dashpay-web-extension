@@ -21,6 +21,7 @@ const ResetWallet: React.FC = () => {
   };
 
   const handleRemoveWallet = (): void => {
+    // TODO: rework this hack once dash wallet lifecycle bugs are fixed
     browser.storage.local.remove('mnemonic').then(() => {
       browser.runtime.reload();
     });
