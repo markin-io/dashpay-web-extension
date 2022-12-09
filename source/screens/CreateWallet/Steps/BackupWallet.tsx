@@ -20,8 +20,7 @@ const BackupWallet: React.FC<Props> = ({onNextStep, onBackStep}) => {
       </div>
       <div className="step__content">
         <div>
-          <Icon icon={BackUpIcon} />
-          {/* <BackupIcon /> */}
+          <Icon icon={BackUpIcon} name="BackUpIcon" />
         </div>
         <h5 className="step__header">
           Backup your wallet with a recovery phrase
@@ -35,7 +34,7 @@ const BackupWallet: React.FC<Props> = ({onNextStep, onBackStep}) => {
         <div className="step__warning column">
           <div className="row center">
             <div>
-              <Icon icon={CloudIcon} />
+              <Icon icon={CloudIcon} name="CloudIcon" />
             </div>
             <span className="step__warning__title">
               We do NOT store this recovery phrase
@@ -43,7 +42,7 @@ const BackupWallet: React.FC<Props> = ({onNextStep, onBackStep}) => {
           </div>
           <div className="row">
             <div>
-              <Icon icon={SadIcon} />
+              <Icon icon={SadIcon} name="SadIcon" />
             </div>
             <div className="column">
               <span className="step__warning__title">

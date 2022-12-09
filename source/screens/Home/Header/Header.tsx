@@ -7,7 +7,6 @@ import useWalletBalance from '../../../hooks/useWalletBalance';
 import useWalletSyncProgress from '../../../hooks/useWalletSyncProgress';
 import moneyFormatter from '../../../utils/moneyFormatter';
 import useDashQuotes from '../../../hooks/useDashQuotes';
-// import MoreIcon from '../../../components/Icons/MoreIcon';
 import Icon from '../../../components/Icon/Icon';
 import {MoreIcon} from '../../../assets/icons';
 
@@ -34,8 +33,7 @@ const Header = () => {
     <header className="header">
       <div className="header__more">
         <button onClick={onOpenMore} type="button">
-          <Icon icon={MoreIcon} />
-          {/*  <MoreIcon /> */}
+          <Icon icon={MoreIcon} name="MoreIcon" />
         </button>
       </div>
 

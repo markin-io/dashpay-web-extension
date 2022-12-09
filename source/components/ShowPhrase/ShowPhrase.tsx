@@ -26,7 +26,7 @@ const ShowPhrase: React.FC = () => {
       </div>
 
       <div className="phrase__warning">
-        <Icon icon={WarningIcon} />
+        <Icon icon={WarningIcon} name="WarningIcon" />
         <span className="phrase__warning__text">
           Do NOT let anyone to see your recovery phrase.
         </span>

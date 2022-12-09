@@ -20,7 +20,7 @@ const SecureNow: React.FC<Props> = ({onNextStep}) => {
       </div>
       <div className="step__content">
         <div>
-          <Icon icon={LockIcon} />
+          <Icon icon={LockIcon} name={'LockIcon'} />
         </div>
         <h5 className="step__header">Secure your wallet</h5>
         <span className="step__text">
