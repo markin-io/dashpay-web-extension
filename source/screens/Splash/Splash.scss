@@ -1,8 +1,10 @@
+@use "../../styles/colors" as *;
+
 .splash-screen {
   background-image: url('chrome-extension://__MSG_@@extension_id__/assets/splash-screen.png');
   background-size: 360px 600px;
-}
 
-.splash-screen__loader {
-  top: calc(50% + 50px) !important;
+  &__loader {
+    top: calc(50% + 50px) !important;
+  }
 }

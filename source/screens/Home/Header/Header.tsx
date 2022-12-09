@@ -1,17 +1,21 @@
-import React, {useMemo} from 'react';
+import React, {useMemo, memo} from 'react';
 
 import './Header.scss';
+import {useNavigate} from 'react-router-dom';
 import logo from '../../../assets/images/logo.png';
 import useWalletBalance from '../../../hooks/useWalletBalance';
 import useWalletSyncProgress from '../../../hooks/useWalletSyncProgress';
 import moneyFormatter from '../../../utils/moneyFormatter';
 import useDashQuotes from '../../../hooks/useDashQuotes';
+import Icon from '../../../components/Icon/Icon';
+import {MoreIcon} from '../../../assets/icons';
 
 const Header = () => {
   const {balance} = useWalletBalance();
   const {dashUsdRate} = useDashQuotes();
   const {initialized} = useWalletSyncProgress();
   const {formatMoney, duffsToDash} = moneyFormatter;
+  const navigate = useNavigate();
 
   const balanceFormatted = useMemo(() => {
     return formatMoney(duffsToDash(balance));
@@ -21,8 +25,18 @@ const Header = () => {
     return formatMoney(duffsToDash(balance) * dashUsdRate, 2);
   }, [balance, dashUsdRate]);
 
+  const onOpenMore = () => {
+    navigate('more');
+  };
+
   return (
     <header className="header">
+      <div className="header__more">
+        <button onClick={onOpenMore} type="button">
+          <Icon icon={MoreIcon} name="MoreIcon" />
+        </button>
+      </div>
+
       <img
         className="header__logo"
         alt="Logo"
@@ -45,4 +59,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default memo(Header);

@@ -12,7 +12,7 @@ const ActionsPane: React.FC = () => {
   const {initialized} = useWalletSyncProgress();
   const navigate = useNavigate();
   const handleNavigateToSend = (): void => {
-    navigate('/send');
+    navigate('send');
   };
 
   return (

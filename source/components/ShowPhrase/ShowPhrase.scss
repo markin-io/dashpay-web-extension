@@ -1,0 +1,50 @@
+@use "../../styles/colors" as *;
+.phrase {
+  height: 100%;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+
+  &__content {
+    padding: 16px;
+    color: $dash-blue;
+    background: white;
+    border-radius: 12px;
+  }
+
+  &__warning {
+    align-items: center;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 18px;
+    margin-top: auto;
+    display: flex;
+    justify-content: center;
+
+    &__text {
+      margin-left: 8px;
+    }
+  }
+}
+
+.fadeIn span{
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeIn 0.5s ease-out forwards;
+  display:inline-block;
+  color: $dash-blue;
+  margin-left: 8px;
+}
+
+@for $i from 1 through 24 {
+  .fadeIn span:nth-child(#{$i}n) {
+    animation-delay: #{$i * 0.5}s;
+  }
+}
+
+@keyframes fadeIn{
+  to{
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

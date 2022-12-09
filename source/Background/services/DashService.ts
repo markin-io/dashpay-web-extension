@@ -34,13 +34,19 @@ class DashService {
     if (!this._wallet) {
       this._wallet = new Wallet({
         network: 'testnet',
-        mnemonic,
         adapter: localforage,
+        mnemonic: mnemonic || null,
         storage: {
           purgeOnError: false,
           autoSave: true,
         },
       });
+
+      if (!mnemonic) {
+        await browser.storage.local.set({
+          mnemonic: this._wallet.exportWallet(),
+        });
+      }
 
       const storageInitPromise = new Promise((resolve, reject) => {
         this._wallet.storage.on(EVENTS.REHYDRATE_STATE_SUCCESS, resolve);
