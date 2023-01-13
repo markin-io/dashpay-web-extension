@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {memo, useEffect} from 'react';
 
 import {browser} from 'webextension-polyfill-ts';
 import './Home.scss';
@@ -29,4 +29,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default memo(Home);

@@ -69,7 +69,7 @@ module.exports = {
 
   output: {
     path: path.join(destPath, targetBrowser),
-    filename: 'js/[name].bundle.js',
+    filename: '[name].bundle.js',
   },
 
   resolve: {
@@ -197,7 +197,7 @@ module.exports = {
       patterns: [{from: 'source/assets', to: 'assets'}],
     }),
     // plugin to enable browser reloading in development mode
-    extensionReloaderPlugin,
+    // extensionReloaderPlugin,
   ],
 
   optimization: {

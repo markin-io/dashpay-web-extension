@@ -2,7 +2,7 @@
 // @ts-ignore
 import {Transaction} from '@dashevo/dashcore-lib';
 
-import {Wallet, EVENTS, CONSTANTS} from '@dashevo/wallet-lib';
+import {Wallet, EVENTS} from '@dashevo/wallet-lib';
 import localforage from 'localforage';
 import {browser} from 'webextension-polyfill-ts';
 
@@ -21,6 +21,8 @@ class DashService {
 
   private _wallet: any;
 
+  private _offline = true;
+
   constructor() {
     this.init = this.init.bind(this);
     this.syncWallet = this.syncWallet.bind(this);
@@ -32,15 +34,19 @@ class DashService {
     const {mnemonic} = await browser.storage.local.get('mnemonic');
 
     if (!this._wallet) {
-      this._wallet = new Wallet({
-        network: 'testnet',
-        adapter: localforage,
-        mnemonic: mnemonic || null,
-        storage: {
-          purgeOnError: false,
-          autoSave: true,
-        },
-      });
+      try {
+        this._wallet = new Wallet({
+          network: 'testnet',
+          adapter: localforage,
+          mnemonic: mnemonic || null,
+          storage: {
+            purgeOnError: false,
+            autoSave: true,
+          },
+        });
+      } catch (e) {
+        console.log('wallet', e);
+      }
 
       if (!mnemonic) {
         await browser.storage.local.set({
@@ -90,7 +96,8 @@ class DashService {
         console.log('Confirmed tx', data);
       });
 
-      const account = await this._wallet.getAccount();
+      const account = await this._wallet.getAccount({synchronize: false});
+      this._offline = false;
       this._wallet.on(EVENTS.FETCHED_CONFIRMED_TRANSACTION, async () => {
         setTimeout(async () => {
           const balance = await account.getTotalBalance();
@@ -116,7 +123,7 @@ class DashService {
   }
 
   async syncWallet(): Promise<void> {
-    if (this._wallet.state === CONSTANTS.WALLET_STATES.OFFLINE) {
+    if (!this._offline) {
       const account = await this._wallet.getAccount();
       account.init().catch(console.error);
     }
