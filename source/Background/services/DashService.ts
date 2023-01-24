@@ -45,7 +45,8 @@ class DashService {
           },
         });
       } catch (e) {
-        console.log('wallet', e);
+        console.error('wallet', e);
+        return false;
       }
 
       if (!mnemonic) {
@@ -97,7 +98,7 @@ class DashService {
       });
 
       const account = await this._wallet.getAccount({synchronize: false});
-      this._offline = false;
+
       this._wallet.on(EVENTS.FETCHED_CONFIRMED_TRANSACTION, async () => {
         setTimeout(async () => {
           const balance = await account.getTotalBalance();
@@ -123,7 +124,8 @@ class DashService {
   }
 
   async syncWallet(): Promise<void> {
-    if (!this._offline) {
+    if (this._offline) {
+      this._offline = false;
       const account = await this._wallet.getAccount();
       account.init().catch(console.error);
     }
