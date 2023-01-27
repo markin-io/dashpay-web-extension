@@ -34,12 +34,9 @@ const SendForm: React.FC = () => {
         'isValidWallet',
         'wallet is not valid',
         (value?: string | null): boolean | ValidationError => {
-          return (
-            !!value &&
-            value?.startsWith(
-              process.env.NODE_ENV === 'development' ? 'y' : 'X'
-            )
-          );
+          // TODO: fix this when adding the main network
+
+          return !!value && value?.startsWith('y');
         }
       ),
     amount: Yup.string()

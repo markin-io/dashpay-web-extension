@@ -25,8 +25,8 @@ const Popup: React.FC = () => {
       if (res?.mnemonic) {
         initSdk(() => setLoading(false)).catch(console.error);
       } else {
-        setLoading(false);
         setEmptyMnemonic(true);
+        setLoading(false);
       }
     });
   }, []);
